@@ -1,0 +1,35 @@
+PolyForm Noncommercial License 1.0.0
+
+<https://polyformproject.org/licenses/noncommercial/1.0.0>
+
+1. Permission to Use and Share
+
+   The licensor grants you a copyright license to do everything with
+   the software that would otherwise infringe the licensor's copyright in
+   it, for any permitted purpose. You may also grant sublicenses to do
+   the same.
+
+2. Permitted Purposes
+
+   A "permitted purpose" is any purpose that is not a commercial purpose.
+
+3. Commercial Purposes
+
+   A "commercial purpose" is any use, modification, or sharing of the
+   software for which you receive or expect to receive anything of value,
+   including money, goods, services, or data, or where the software is
+   used in or directly benefits a revenue-generating activity.
+
+4. Notices
+
+   You must ensure that everyone who gets a copy of any part of this
+   software from you also gets a copy of this license.
+
+5. Open Sublicenses
+
+   If you distribute copies or modifications under a different license,
+   that license must preserve the restrictions of this license.
+
+6. No Warranties
+
+   The licensor provides the software "as is", without any warranty.
