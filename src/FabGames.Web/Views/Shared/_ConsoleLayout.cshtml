@@ -1,0 +1,48 @@
+@using System.Globalization
+@using System.Text.Json
+@{
+    var culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var other = culture == "es" ? "en" : "es";
+    var view = ViewData["View"]?.ToString() ?? "home";
+    var strings = L.GetAllStrings(true).ToDictionary(s => s.Name, s => s.Value);
+    var returnUrl = Context.Request.Path + Context.Request.QueryString;
+    var appName = L["app.name"].Value;
+    var pageTitle = ViewData["Title"]?.ToString();
+    var fullTitle = string.IsNullOrEmpty(pageTitle) || pageTitle == appName ? appName : $"{pageTitle} · {appName}";
+}
+<!doctype html>
+<html lang="@culture" data-input="mouse">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#080c18">
+  <title>@fullTitle</title>
+  <link rel="icon" href="~/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="~/img/brand/favicon-32.png">
+  <link rel="apple-touch-icon" href="~/img/brand/apple-touch-icon.png">
+  <link rel="preload" href="~/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="~/fonts/hanken-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="~/css/core/base.css" asp-append-version="true">
+  @await RenderSectionAsync("Styles", required: false)
+</head>
+<body data-view="@view" data-culture="@culture" data-hub-url="/hubs/game">
+  <a class="skip-link" href="#main">@L["a11y.skip"]</a>
+
+  <div class="atmos" aria-hidden="true">
+    <div class="atmos__bg atmos__bg--a"></div>
+    <div class="atmos__bg atmos__bg--b"></div>
+    <canvas class="atmos__dust" width="960" height="540"></canvas>
+    <div class="atmos__vignette"></div>
+  </div>
+
+  @RenderBody()
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+  <div id="sr-live" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script type="application/json" id="i18n">@Html.Raw(JsonSerializer.Serialize(strings))</script>
+  <template id="lang-links" data-other="@other" data-url="/locale/@other?returnUrl=@Uri.EscapeDataString(returnUrl)"></template>
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

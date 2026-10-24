@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="app.name" xml:space="preserve"><value>FAB Games</value></data>
+  <data name="nav.home" xml:space="preserve"><value>Inicio</value></data>
+  <data name="nav.back" xml:space="preserve"><value>Volver</value></data>
+  <data name="nav.close" xml:space="preserve"><value>Cerrar</value></data>
+  <data name="nav.settings" xml:space="preserve"><value>Ajustes</value></data>
+  <data name="nav.language" xml:space="preserve"><value>Idioma</value></data>
+  <data name="nav.sound.on" xml:space="preserve"><value>Sonido activado</value></data>
+  <data name="nav.sound.off" xml:space="preserve"><value>Sonido desactivado</value></data>
+  <data name="a11y.skip" xml:space="preserve"><value>Saltar al contenido</value></data>
+  <data name="a11y.board.chess" xml:space="preserve"><value>Tablero de ajedrez</value></data>
+  <data name="a11y.board.checkers" xml:space="preserve"><value>Tablero de damas</value></data>
+  <data name="a11y.board.help" xml:space="preserve"><value>Usa las flechas para moverte por el tablero, Intro para seleccionar y mover, Escape para cancelar.</value></data>
+  <data name="boot.prompt" xml:space="preserve"><value>Toca para empezar</value></data>
+  <data name="profile.title" xml:space="preserve"><value>¿Quién juega?</value></data>
+  <data name="profile.new" xml:space="preserve"><value>Nuevo perfil</value></data>
+  <data name="profile.create.title" xml:space="preserve"><value>Crea tu perfil</value></data>
+  <data name="profile.nickname" xml:space="preserve"><value>Apodo</value></data>
+  <data name="profile.nickname.hint" xml:space="preserve"><value>De 2 a 16 caracteres</value></data>
+  <data name="profile.avatar" xml:space="preserve"><value>Elige un avatar</value></data>
+  <data name="profile.save" xml:space="preserve"><value>Guardar perfil</value></data>
+  <data name="profile.cancel" xml:space="preserve"><value>Cancelar</value></data>
+  <data name="profile.delete" xml:space="preserve"><value>Eliminar perfil</value></data>
+  <data name="profile.switch" xml:space="preserve"><value>Cambiar de perfil</value></data>
+  <data name="profile.error.name" xml:space="preserve"><value>El apodo debe tener entre 2 y 16 caracteres.</value></data>
+  <data name="profile.needed" xml:space="preserve"><value>Elige un perfil para entrar a la sala.</value></data>
+  <data name="home.chess.title" xml:space="preserve"><value>Ajedrez</value></data>
+  <data name="home.chess.desc" xml:space="preserve"><value>El duelo clásico. Un tablero, dos mentes, y relojes si quieres.</value></data>
+  <data name="home.checkers.title" xml:space="preserve"><value>Damas</value></data>
+  <data name="home.checkers.desc" xml:space="preserve"><value>Capturas obligatorias, saltos encadenados y reyes coronados.</value></data>
+  <data name="home.soon.title" xml:space="preserve"><value>Próximamente</value></data>
+  <data name="home.soon.desc" xml:space="preserve"><value>Algo está en camino. Mientras tanto, el tablero es tuyo.</value></data>
+  <data name="home.players" xml:space="preserve"><value>{n} jugadores</value></data>
+  <data name="home.btn.create" xml:space="preserve"><value>Crear sala</value></data>
+  <data name="home.btn.join" xml:space="preserve"><value>Unirse con código</value></data>
+  <data name="home.btn.how" xml:space="preserve"><value>Cómo jugar</value></data>
+  <data name="home.tiles" xml:space="preserve"><value>Juegos</value></data>
+  <data name="create.title" xml:space="preserve"><value>Crear sala</value></data>
+  <data name="create.time" xml:space="preserve"><value>Control de tiempo</value></data>
+  <data name="create.increment" xml:space="preserve"><value>Incremento por jugada</value></data>
+  <data name="create.submit" xml:space="preserve"><value>Crear sala</value></data>
+  <data name="time.none" xml:space="preserve"><value>Sin reloj</value></data>
+  <data name="time.5" xml:space="preserve"><value>5 min</value></data>
+  <data name="time.10" xml:space="preserve"><value>10 min</value></data>
+  <data name="time.15" xml:space="preserve"><value>15 min</value></data>
+  <data name="inc.0" xml:space="preserve"><value>Ninguno</value></data>
+  <data name="inc.3" xml:space="preserve"><value>+3 s</value></data>
+  <data name="inc.5" xml:space="preserve"><value>+5 s</value></data>
+  <data name="inc.10" xml:space="preserve"><value>+10 s</value></data>
+  <data name="join.title" xml:space="preserve"><value>Unirse con código</value></data>
+  <data name="join.code" xml:space="preserve"><value>Código de sala</value></data>
+  <data name="join.hint" xml:space="preserve"><value>Seis caracteres. No distingue mayúsculas.</value></data>
+  <data name="join.submit" xml:space="preserve"><value>Unirse</value></data>
+  <data name="join.invalid" xml:space="preserve"><value>Ese código no es válido.</value></data>
+  <data name="how.title" xml:space="preserve"><value>Cómo jugar</value></data>
+  <data name="how.chess.1" xml:space="preserve"><value>Las blancas mueven primero. Cada pieza se mueve a su manera; selecciona una para ver sus movimientos legales.</value></data>
+  <data name="how.chess.2" xml:space="preserve"><value>Si tu rey está en jaque, debes resolverlo. El jaque mate termina la partida.</value></data>
+  <data name="how.chess.3" xml:space="preserve"><value>Movimientos especiales: enroque, captura al paso y coronación de peones.</value></data>
+  <data name="how.chess.4" xml:space="preserve"><value>Tablas por rey ahogado, material insuficiente, triple repetición, 50 movimientos o acuerdo.</value></data>
+  <data name="how.checkers.1" xml:space="preserve"><value>Las oscuras mueven primero. Las fichas avanzan una casilla en diagonal.</value></data>
+  <data name="how.checkers.2" xml:space="preserve"><value>Capturar es obligatorio. Si puedes saltar, debes saltar, y seguir saltando mientras puedas.</value></data>
+  <data name="how.checkers.3" xml:space="preserve"><value>Al llegar a la última fila, la ficha se corona rey y el turno termina.</value></data>
+  <data name="how.checkers.4" xml:space="preserve"><value>Los reyes se mueven una casilla en cualquier diagonal. Gana quien deja al rival sin fichas o sin movimientos.</value></data>
+  <data name="settings.title" xml:space="preserve"><value>Ajustes</value></data>
+  <data name="settings.sound" xml:space="preserve"><value>Sonido</value></data>
+  <data name="settings.lite" xml:space="preserve"><value>Efectos reducidos</value></data>
+  <data name="settings.lite.hint" xml:space="preserve"><value>Menos brillos y partículas en equipos lentos.</value></data>
+  <data name="settings.language" xml:space="preserve"><value>Idioma</value></data>
+  <data name="err.UNKNOWN" xml:space="preserve"><value>Algo ha salido mal. Inténtalo de nuevo.</value></data>
+  <data name="err.INVALID_REQUEST" xml:space="preserve"><value>Los datos no son válidos.</value></data>
+  <data name="err.INVALID_ACTION" xml:space="preserve"><value>Ese movimiento no es válido.</value></data>
+  <data name="err.UNKNOWN_GAME" xml:space="preserve"><value>Ese juego no existe.</value></data>
+  <data name="err.ROOM_NOT_FOUND" xml:space="preserve"><value>No encontramos esa sala. Puede que haya caducado.</value></data>
+  <data name="err.ROOM_FULL" xml:space="preserve"><value>La sala está llena.</value></data>
+  <data name="err.ROOM_LIMIT_REACHED" xml:space="preserve"><value>Hay demasiadas salas ahora mismo. Prueba en un rato.</value></data>
+  <data name="err.GAME_IN_PROGRESS" xml:space="preserve"><value>La partida ya ha empezado.</value></data>
+  <data name="err.ALREADY_IN_GAME" xml:space="preserve"><value>Ya estás en una partida en curso.</value></data>
+  <data name="err.NOT_IN_ROOM" xml:space="preserve"><value>No formas parte de esta sala.</value></data>
+  <data name="err.NOT_HOST" xml:space="preserve"><value>Solo el anfitrión puede hacer eso.</value></data>
+  <data name="err.NOT_ENOUGH_PLAYERS" xml:space="preserve"><value>Faltan jugadores.</value></data>
+  <data name="err.GAME_NOT_STARTED" xml:space="preserve"><value>La partida aún no ha empezado.</value></data>
+  <data name="err.GAME_OVER" xml:space="preserve"><value>La partida ya terminó.</value></data>
+  <data name="err.NOT_YOUR_TURN" xml:space="preserve"><value>No es tu turno.</value></data>
+  <data name="err.ILLEGAL_MOVE" xml:space="preserve"><value>Movimiento ilegal.</value></data>
+  <data name="err.PROMOTION_REQUIRED" xml:space="preserve"><value>Elige una pieza para la coronación.</value></data>
+  <data name="err.MANDATORY_CAPTURE" xml:space="preserve"><value>Tienes que capturar.</value></data>
+  <data name="err.INCOMPLETE_CAPTURE" xml:space="preserve"><value>Debes seguir saltando.</value></data>
+  <data name="err.STALE_STATE" xml:space="preserve"><value>El tablero cambió. Inténtalo de nuevo.</value></data>
+  <data name="err.NO_DRAW_OFFER" xml:space="preserve"><value>No hay ninguna propuesta de tablas.</value></data>
+  <data name="err.DRAW_ALREADY_OFFERED" xml:space="preserve"><value>Ya propusiste tablas.</value></data>
+  <data name="err.REMATCH_NOT_AVAILABLE" xml:space="preserve"><value>La revancha no está disponible.</value></data>
+  <data name="err.MESSAGE_INVALID" xml:space="preserve"><value>El mensaje no es válido (máximo 200 caracteres).</value></data>
+  <data name="err.RATE_LIMITED" xml:space="preserve"><value>Vas demasiado rápido. Espera un momento.</value></data>
+  <data name="lobby.title" xml:space="preserve"><value>Sala</value></data>
+  <data name="lobby.code" xml:space="preserve"><value>Código de sala</value></data>
+  <data name="lobby.copy" xml:space="preserve"><value>Copiar código</value></data>
+  <data name="lobby.copy.link" xml:space="preserve"><value>Copiar enlace</value></data>
+  <data name="lobby.copied" xml:space="preserve"><value>Copiado</value></data>
+  <data name="lobby.share" xml:space="preserve"><value>Compartir</value></data>
+  <data name="lobby.share.text" xml:space="preserve"><value>Juega conmigo en FAB Games.</value></data>
+  <data name="lobby.waiting" xml:space="preserve"><value>Esperando a tu rival…</value></data>
+  <data name="lobby.seat.empty" xml:space="preserve"><value>Asiento libre</value></data>
+  <data name="lobby.ready" xml:space="preserve"><value>Listo</value></data>
+  <data name="lobby.notready" xml:space="preserve"><value>Sin confirmar</value></data>
+  <data name="lobby.btn.ready" xml:space="preserve"><value>Estoy listo</value></data>
+  <data name="lobby.btn.unready" xml:space="preserve"><value>Ya no estoy listo</value></data>
+  <data name="lobby.start" xml:space="preserve"><value>Empezar partida</value></data>
+  <data name="lobby.host" xml:space="preserve"><value>Anfitrión</value></data>
+  <data name="lobby.you" xml:space="preserve"><value>Tú</value></data>
+  <data name="lobby.offline" xml:space="preserve"><value>Sin conexión</value></data>
+  <data name="lobby.leave" xml:space="preserve"><value>Salir de la sala</value></data>
+  <data name="lobby.time.none" xml:space="preserve"><value>Sin reloj</value></data>
+  <data name="lobby.time" xml:space="preserve"><value>{min} min + {inc} s</value></data>
+  <data name="lobby.joining" xml:space="preserve"><value>Entrando en la sala…</value></data>
+  <data name="lobby.creating" xml:space="preserve"><value>Creando la sala…</value></data>
+  <data name="lobby.home" xml:space="preserve"><value>Volver al inicio</value></data>
+  <data name="lobby.hint" xml:space="preserve"><value>Envía el código o el enlace a quien quieras que juegue contigo.</value></data>
+  <data name="chat.title" xml:space="preserve"><value>Chat</value></data>
+  <data name="chat.placeholder" xml:space="preserve"><value>Escribe un mensaje</value></data>
+  <data name="chat.send" xml:space="preserve"><value>Enviar</value></data>
+  <data name="chat.empty" xml:space="preserve"><value>Aún no hay mensajes.</value></data>
+  <data name="game.you" xml:space="preserve"><value>Tú</value></data>
+  <data name="game.turn.yours" xml:space="preserve"><value>Tu turno</value></data>
+  <data name="game.turn.theirs" xml:space="preserve"><value>Turno de {name}</value></data>
+  <data name="game.resign" xml:space="preserve"><value>Rendirse</value></data>
+  <data name="game.resign.confirm" xml:space="preserve"><value>¿Seguro que quieres rendirte?</value></data>
+  <data name="game.resign.yes" xml:space="preserve"><value>Sí, rendirme</value></data>
+  <data name="game.keep" xml:space="preserve"><value>Seguir jugando</value></data>
+  <data name="game.draw.offer" xml:space="preserve"><value>Proponer tablas</value></data>
+  <data name="game.draw.offered" xml:space="preserve"><value>Has propuesto tablas.</value></data>
+  <data name="game.draw.received" xml:space="preserve"><value>{name} propone tablas.</value></data>
+  <data name="game.draw.accept" xml:space="preserve"><value>Aceptar</value></data>
+  <data name="game.draw.decline" xml:space="preserve"><value>Rechazar</value></data>
+  <data name="game.draw.declined" xml:space="preserve"><value>{name} rechazó las tablas.</value></data>
+  <data name="game.moves" xml:space="preserve"><value>Movimientos</value></data>
+  <data name="game.moves.empty" xml:space="preserve"><value>Aún no hay movimientos.</value></data>
+  <data name="game.chat" xml:space="preserve"><value>Chat</value></data>
+  <data name="game.check" xml:space="preserve"><value>Jaque</value></data>
+  <data name="game.mustcapture" xml:space="preserve"><value>Captura obligatoria</value></data>
+  <data name="game.promote" xml:space="preserve"><value>Elige una pieza</value></data>
+  <data name="game.conn.lost" xml:space="preserve"><value>Conexión perdida. Reintentando…</value></data>
+  <data name="game.opp.reconnecting" xml:space="preserve"><value>{name} se ha desconectado. Perderá la partida en {s} s.</value></data>
+  <data name="game.opp.back" xml:space="preserve"><value>{name} ha vuelto.</value></data>
+  <data name="game.captured" xml:space="preserve"><value>Capturadas</value></data>
+  <data name="game.menu" xml:space="preserve"><value>Opciones</value></data>
+  <data name="color.chess.white" xml:space="preserve"><value>Blancas</value></data>
+  <data name="color.chess.black" xml:space="preserve"><value>Negras</value></data>
+  <data name="color.checkers.white" xml:space="preserve"><value>Claras</value></data>
+  <data name="color.checkers.black" xml:space="preserve"><value>Oscuras</value></data>
+  <data name="announce.move" xml:space="preserve"><value>{name}: {piece} a {to}</value></data>
+  <data name="announce.capture" xml:space="preserve"><value>{name}: {piece} captura en {to}</value></data>
+  <data name="announce.castle.k" xml:space="preserve"><value>{name}: enroque corto</value></data>
+  <data name="announce.castle.q" xml:space="preserve"><value>{name}: enroque largo</value></data>
+  <data name="announce.check" xml:space="preserve"><value>Jaque</value></data>
+  <data name="announce.square" xml:space="preserve"><value>{square}: {what}</value></data>
+  <data name="announce.empty" xml:space="preserve"><value>vacía</value></data>
+  <data name="announce.selected" xml:space="preserve"><value>{piece} en {square} seleccionado. {n} destinos.</value></data>
+  <data name="announce.cancel" xml:space="preserve"><value>Selección cancelada</value></data>
+  <data name="announce.piece" xml:space="preserve"><value>{piece} {color}</value></data>
+  <data name="piece.chess.P" xml:space="preserve"><value>peón</value></data>
+  <data name="piece.chess.N" xml:space="preserve"><value>caballo</value></data>
+  <data name="piece.chess.B" xml:space="preserve"><value>alfil</value></data>
+  <data name="piece.chess.R" xml:space="preserve"><value>torre</value></data>
+  <data name="piece.chess.Q" xml:space="preserve"><value>dama</value></data>
+  <data name="piece.chess.K" xml:space="preserve"><value>rey</value></data>
+  <data name="piece.checkers.man" xml:space="preserve"><value>ficha</value></data>
+  <data name="piece.checkers.king" xml:space="preserve"><value>rey</value></data>
+  <data name="announce.colorword.chess.w" xml:space="preserve"><value>blanco</value></data>
+  <data name="announce.colorword.chess.b" xml:space="preserve"><value>negro</value></data>
+  <data name="announce.colorword.checkers.w" xml:space="preserve"><value>claro</value></data>
+  <data name="announce.colorword.checkers.b" xml:space="preserve"><value>oscuro</value></data>
+  <data name="over.victory" xml:space="preserve"><value>Victoria</value></data>
+  <data name="over.defeat" xml:space="preserve"><value>Derrota</value></data>
+  <data name="over.draw" xml:space="preserve"><value>Tablas</value></data>
+  <data name="over.moves" xml:space="preserve"><value>Movimientos</value></data>
+  <data name="over.duration" xml:space="preserve"><value>Duración</value></data>
+  <data name="over.rematch" xml:space="preserve"><value>Revancha</value></data>
+  <data name="over.rematch.waiting" xml:space="preserve"><value>Esperando a tu rival…</value></data>
+  <data name="over.rematch.requested" xml:space="preserve"><value>{name} quiere la revancha.</value></data>
+  <data name="over.home" xml:space="preserve"><value>Volver al inicio</value></data>
+  <data name="over.view" xml:space="preserve"><value>Ver tablero</value></data>
+  <data name="reason.Checkmate" xml:space="preserve"><value>Jaque mate</value></data>
+  <data name="reason.Stalemate" xml:space="preserve"><value>Rey ahogado</value></data>
+  <data name="reason.InsufficientMaterial" xml:space="preserve"><value>Material insuficiente</value></data>
+  <data name="reason.ThreefoldRepetition" xml:space="preserve"><value>Triple repetición</value></data>
+  <data name="reason.FiftyMoveRule" xml:space="preserve"><value>Regla de los 50 movimientos</value></data>
+  <data name="reason.FortyMoveRule" xml:space="preserve"><value>Regla de los 40 movimientos</value></data>
+  <data name="reason.NoPieces" xml:space="preserve"><value>Sin fichas</value></data>
+  <data name="reason.NoLegalMoves" xml:space="preserve"><value>Sin movimientos legales</value></data>
+  <data name="reason.Resignation" xml:space="preserve"><value>Rendición</value></data>
+  <data name="reason.DrawAgreement" xml:space="preserve"><value>Acuerdo de tablas</value></data>
+  <data name="reason.Timeout" xml:space="preserve"><value>Tiempo agotado</value></data>
+  <data name="reason.Abandonment" xml:space="preserve"><value>Abandono</value></data>
+  <data name="trophy.unlocked" xml:space="preserve"><value>Trofeo desbloqueado</value></data>
+  <data name="trophy.first_win" xml:space="preserve"><value>Primera victoria</value></data>
+  <data name="trophy.first_draw" xml:space="preserve"><value>Primeras tablas</value></data>
+  <data name="trophy.ten_games" xml:space="preserve"><value>10 partidas jugadas</value></data>
+</root>

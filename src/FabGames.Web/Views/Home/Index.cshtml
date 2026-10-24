@@ -1,8 +1,20 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = L["app.name"].Value;
+    ViewData["View"] = "home";
+}
+@section Styles {
+  <link rel="stylesheet" href="~/css/home/index.css" asp-append-version="true">
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<main id="main" class="shell">
+  <partial name="_Boot" />
+  <partial name="_Profiles" />
+  <partial name="_Dashboard" model="Model" />
+</main>
+
+<partial name="_HomeDialogs" />
+
+@section Scripts {
+  <script type="module" src="~/js/home/index.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,557 @@
+/* FAB Games · home: boot sequence, profile select, dashboard */
+
+.shell {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.stage {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: max(20px, env(safe-area-inset-top)) var(--gutter) max(28px, env(safe-area-inset-bottom));
+}
+
+.stage.is-in {
+  animation: stage-in 0.45s var(--ease-out) both;
+}
+
+.stage.is-out {
+  animation: stage-out 0.2s var(--ease-snap) both;
+  pointer-events: none;
+}
+
+@keyframes stage-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes stage-out {
+  to { opacity: 0; }
+}
+
+/* ───────── Boot (3.8 s, skippable) ───────── */
+
+.stage--boot {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 2.5vh, 24px);
+  background: var(--ink-950);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.stage--boot.is-skipping {
+  animation: stage-out 0.2s var(--ease-snap) both;
+  pointer-events: none;
+}
+
+.boot__bloom {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 50% at 50% 105%, rgba(41, 114, 245, 0.55), rgba(41, 114, 245, 0) 70%),
+    radial-gradient(40% 30% at 50% 60%, rgba(91, 148, 255, 0.12), rgba(91, 148, 255, 0) 70%);
+  opacity: 0;
+  animation: boot-bloom 1.6s var(--ease-out) 0.4s forwards;
+}
+
+.boot__logo {
+  position: relative;
+  width: clamp(120px, 26vmin, 260px);
+  aspect-ratio: 575 / 560;
+}
+
+.boot__shield {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  filter: drop-shadow(0 0 40px rgba(41, 114, 245, 0.55));
+  animation: boot-shield 0.9s var(--ease-out) 1.2s forwards;
+}
+
+.boot__sweep {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-mask: url("/img/brand/shield.webp") center / contain no-repeat;
+  mask: url("/img/brand/shield.webp") center / contain no-repeat;
+  pointer-events: none;
+}
+
+.boot__sweep::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  width: 36%;
+  left: 0;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+  transform: translateX(-140%) skewX(-12deg);
+  animation: boot-sweep 0.9s var(--ease-snap) 1.8s forwards;
+}
+
+.boot__wordmark {
+  width: clamp(200px, 40vmin, 400px);
+  height: auto;
+  opacity: 0;
+  animation: boot-rise 0.8s var(--ease-out) 2.2s forwards;
+}
+
+.boot__prompt {
+  position: absolute;
+  bottom: max(48px, 10vh);
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--text-2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  opacity: 0;
+  animation: boot-fade 0.6s var(--ease-out) 3.2s forwards, boot-breathe 2.4s ease-in-out 3.8s infinite alternate;
+}
+
+@keyframes boot-bloom {
+  from { opacity: 0; transform: translateY(8%); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes boot-shield {
+  from { opacity: 0; transform: translateY(12px) scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes boot-sweep {
+  to { transform: translateX(380%) skewX(-12deg); }
+}
+
+@keyframes boot-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes boot-fade {
+  to { opacity: 1; }
+}
+
+@keyframes boot-breathe {
+  from { opacity: 1; }
+  to { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot__bloom { animation: boot-fade 0.6s linear 0.1s forwards; }
+  .boot__shield { animation: boot-fade 0.6s linear 0.3s forwards; }
+  .boot__sweep { display: none; }
+  .boot__wordmark { animation: boot-fade 0.6s linear 0.7s forwards; }
+  .boot__prompt { animation: boot-fade 0.6s linear 1.2s forwards; }
+
+  @keyframes boot-bloom { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes stage-in { from { opacity: 0; } to { opacity: 1; } }
+}
+
+/* ───────── Profile select ───────── */
+
+.stage--profiles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(28px, 6vh, 56px);
+  text-align: center;
+}
+
+.profile-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(20px, 4vw, 44px);
+  margin: 0;
+  padding: 24px 0;
+  list-style: none;
+}
+
+.profile-bubble {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  width: 124px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-2);
+  transition: transform 0.45s var(--spring), color 0.2s;
+}
+
+.profile-bubble__disc {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  overflow: visible;
+  transition: box-shadow 0.3s var(--ease-out);
+}
+
+.profile-bubble__disc img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.profile-bubble__name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.profile-bubble:hover,
+.profile-bubble:focus-visible,
+.profile-bubble.is-focus {
+  transform: scale(1.12);
+  color: var(--text-1);
+}
+
+.profile-bubble:hover .profile-bubble__disc,
+.profile-bubble:focus-visible .profile-bubble__disc,
+.profile-bubble.is-focus .profile-bubble__disc {
+  box-shadow: 0 0 0 3px var(--blue-400), 0 0 0 7px rgba(41, 114, 245, 0.25), 0 18px 60px -6px rgba(41, 114, 245, 0.75);
+}
+
+.profile-bubble:hover .profile-bubble__name,
+.profile-bubble:focus-visible .profile-bubble__name,
+.profile-bubble.is-focus .profile-bubble__name {
+  opacity: 1;
+}
+
+.profile-bubble:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.profile-bubble--new .profile-bubble__disc {
+  border: 2px dashed var(--line-strong);
+  color: var(--text-2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.profile-bubble--new .icon {
+  width: 36px;
+  height: 36px;
+}
+
+.profile-form {
+  width: min(580px, 100%);
+  text-align: left;
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.avatar-option {
+  position: relative;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  aspect-ratio: 1;
+  transition: transform 0.25s var(--spring);
+}
+
+.avatar-option img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.avatar-option:hover {
+  transform: scale(1.08);
+}
+
+.avatar-option[aria-checked="true"] {
+  box-shadow: 0 0 0 3px var(--ink-900), 0 0 0 5px var(--blue-400);
+  transform: scale(1.06);
+}
+
+@media (max-width: 520px) {
+  .avatar-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* ───────── Dashboard ───────── */
+
+.stage--dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 4vh, 40px);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar__shield {
+  width: 44px;
+  height: auto;
+}
+
+.topbar__wordmark {
+  width: 96px;
+  height: auto;
+}
+
+.topbar__tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.topbar__clock {
+  padding: 0 6px;
+  color: var(--text-2);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+#sound-toggle .icon--off { display: none; }
+#sound-toggle[aria-pressed="false"] .icon--on { display: none; }
+#sound-toggle[aria-pressed="false"] .icon--off { display: block; color: var(--text-3); }
+
+.profile-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 2px 16px 2px 2px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.06);
+  font-weight: 600;
+  transition: background-color 0.18s, transform 0.18s var(--ease-snap);
+}
+
+.profile-chip:hover { background: rgba(255, 255, 255, 0.12); }
+.profile-chip:active { transform: scale(0.97); }
+
+.profile-chip__name {
+  max-width: 11ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tiles {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 26px);
+  margin: auto 0 0;
+  padding: 36px 20px 40px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.tiles::-webkit-scrollbar { display: none; }
+
+.tile {
+  --tx: 0;
+  --ty: 0;
+  position: relative;
+  flex: none;
+  width: clamp(150px, 19vw, 250px);
+  aspect-ratio: 4 / 5;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-tile);
+  overflow: hidden;
+  background: var(--ink-800);
+  color: #fff;
+  text-align: left;
+  scroll-snap-align: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 0 0 1px var(--line);
+  transform: perspective(900px) rotateX(calc(var(--ty) * -3deg)) rotateY(calc(var(--tx) * 3deg)) scale(0.96);
+  opacity: 0.6;
+  transition: transform 0.5s var(--spring), opacity 0.3s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tile::before {
+  /* Pre-rendered glow, faded in with opacity so focus never repaints a blur. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(157, 190, 255, 0.55);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tile.is-active {
+  opacity: 1;
+  transform: perspective(900px) rotateX(calc(var(--ty) * -3deg)) rotateY(calc(var(--tx) * 3deg)) scale(1.08);
+  box-shadow: 0 2.2rem 5rem -1.4rem rgba(41, 114, 245, 0.7), 0 0 0 1px rgba(157, 190, 255, 0.4);
+  z-index: 3;
+}
+
+.tile.is-active::before { opacity: 1; }
+
+.tile:focus-visible,
+html[data-input="keyboard"] .tile:focus,
+html[data-input="gamepad"] .tile:focus {
+  outline: 3px solid var(--blue-400);
+  outline-offset: 6px;
+  box-shadow: 0 2.2rem 5rem -1.4rem rgba(41, 114, 245, 0.7);
+}
+
+.tile__art,
+.tile__shade {
+  position: absolute;
+  inset: 0;
+}
+
+.tile__art {
+  background-size: cover;
+  background-position: 62% 50%;
+}
+
+.tile__art--chess { background-image: url("/img/covers/chess-sm.webp"); }
+.tile__art--checkers { background-image: url("/img/covers/checkers-sm.webp"); background-position: 40% 50%; }
+
+.tile--soon .tile__art {
+  background-image:
+    radial-gradient(70% 50% at 50% 30%, rgba(41, 114, 245, 0.28), transparent 70%),
+    linear-gradient(160deg, #16213f, #0b1226);
+}
+
+.tile--soon .tile__art::after {
+  content: "?";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font: 800 4rem/1 var(--font-display);
+  font-stretch: 125%;
+  color: rgba(157, 190, 255, 0.28);
+}
+
+.tile__shade {
+  background: linear-gradient(0deg, rgba(5, 8, 15, 0.92), rgba(5, 8, 15, 0) 58%);
+}
+
+.tile__title {
+  position: absolute;
+  left: 12%;
+  right: 8%;
+  bottom: 9%;
+  font: 800 clamp(1.1rem, 1.9vw, 1.6rem) / 1.05 var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.8);
+}
+
+.game-info {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  max-width: 640px;
+}
+
+.game-info.is-swapping > * {
+  animation: info-in 0.36s var(--ease-out) both;
+}
+
+.game-info.is-swapping > :nth-child(2) { animation-delay: 0.04s; }
+.game-info.is-swapping > :nth-child(3) { animation-delay: 0.08s; }
+.game-info.is-swapping > :nth-child(4) { animation-delay: 0.12s; }
+
+@keyframes info-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.game-info__desc {
+  color: var(--text-2);
+  font-size: 1.1rem;
+  max-width: 52ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+@media (max-width: 720px) {
+  .tiles {
+    margin-top: 0;
+    padding: 28px 16px 30px;
+    margin-inline: calc(var(--gutter) * -1);
+  }
+
+  .tile { width: 42vw; }
+  .topbar__clock { display: none; }
+  .actions .btn { flex: 1 1 100%; }
+}
+
+/* Profile delete: shown on hover and focus; always faintly visible on touch. */
+.profile-item {
+  position: relative;
+}
+
+.profile-delete {
+  position: absolute;
+  top: -2px;
+  right: 6px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: rgba(5, 8, 15, 0.8);
+  color: var(--text-2);
+  opacity: 0;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+.profile-item:hover .profile-delete,
+.profile-item:focus-within .profile-delete {
+  opacity: 1;
+}
+
+.profile-delete:hover {
+  background: rgba(255, 107, 122, 0.25);
+  color: #fff;
+}
+
+@media (hover: none) {
+  .profile-delete { opacity: 0.55; }
+}

@@ -1,0 +1,23 @@
+<section id="stage-profiles" class="stage stage--profiles" aria-labelledby="profiles-title" hidden data-nav-root>
+  <h1 id="profiles-title" class="display display--md">@L["profile.title"]</h1>
+
+  <ul id="profile-list" class="profile-list" aria-label="@L["profile.title"]"></ul>
+
+  <form id="profile-form" class="panel glass profile-form" hidden novalidate>
+    <h2 class="panel__title">@L["profile.create.title"]</h2>
+    <label class="field">
+      <span class="field__label">@L["profile.nickname"]</span>
+      <input id="profile-name" class="input" name="nickname" type="text" minlength="2" maxlength="16" autocomplete="off" autocapitalize="words" spellcheck="false" required data-nav>
+      <span class="field__hint" id="profile-name-hint">@L["profile.nickname.hint"]</span>
+    </label>
+    <fieldset class="field">
+      <legend class="field__label">@L["profile.avatar"]</legend>
+      <div id="avatar-grid" class="avatar-grid" role="radiogroup"></div>
+    </fieldset>
+    <p id="profile-error" class="form-error" role="alert" hidden>@L["profile.error.name"]</p>
+    <div class="form-actions">
+      <button type="submit" class="btn btn--primary" data-nav>@L["profile.save"]</button>
+      <button type="button" id="profile-cancel" class="btn btn--ghost" data-nav>@L["profile.cancel"]</button>
+    </div>
+  </form>
+</section>

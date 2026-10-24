@@ -1,0 +1,55 @@
+@model HomeViewModel
+<section id="stage-dashboard" class="stage stage--dashboard" aria-label="@L["home.tiles"]" hidden data-nav-root>
+  <header class="topbar">
+    <div class="topbar__brand">
+      <img src="~/img/brand/shield.webp" width="575" height="560" alt="" class="topbar__shield">
+      <img src="~/img/brand/wordmark.webp" width="930" height="480" alt="@L["app.name"]" class="topbar__wordmark">
+    </div>
+    <div class="topbar__tools">
+      <time id="clock" class="mono topbar__clock" aria-hidden="true"></time>
+      <a id="lang-switch" class="chip-btn" href="#" data-nav title="@L["nav.language"]">
+        <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-globe"></use></svg>
+        <span class="chip-btn__label">@(System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "es" ? "EN" : "ES")</span>
+      </a>
+      <button id="sound-toggle" class="chip-btn" type="button" data-nav aria-pressed="true" title="@L["nav.sound.on"]">
+        <svg class="icon icon--on" aria-hidden="true"><use href="/img/icons.svg#i-volume-on"></use></svg>
+        <svg class="icon icon--off" aria-hidden="true"><use href="/img/icons.svg#i-volume-off"></use></svg>
+        <span class="sr-only" id="sound-label">@L["nav.sound.on"]</span>
+      </button>
+      <button id="open-settings" class="chip-btn" type="button" data-nav title="@L["nav.settings"]">
+        <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-settings"></use></svg>
+        <span class="sr-only">@L["nav.settings"]</span>
+      </button>
+      <button id="profile-chip" class="profile-chip" type="button" data-nav title="@L["profile.switch"]">
+        <img id="profile-chip-avatar" class="avatar avatar--sm" src="" alt="" width="40" height="40">
+        <span id="profile-chip-name" class="profile-chip__name"></span>
+      </button>
+    </div>
+  </header>
+
+  <div id="tiles" class="tiles" role="group" aria-label="@L["home.tiles"]">
+    @foreach (var game in Model.Games)
+    {
+      <button type="button" class="tile @(game.Available ? "" : "tile--soon")" data-nav data-game="@game.Id"
+              data-cover="@game.Cover" data-title="@L[game.TitleKey]" data-desc="@L[game.DescriptionKey]"
+              data-players="@game.Players" aria-describedby="game-desc">
+        <span class="tile__art tile__art--@game.Cover"></span>
+        <span class="tile__shade"></span>
+        <span class="tile__title">@L[game.TitleKey]</span>
+      </button>
+    }
+  </div>
+
+  <div class="game-info" id="game-info">
+    <h1 id="game-title" class="display display--md"></h1>
+    <p id="game-desc" class="game-info__desc"></p>
+    <p id="game-players" class="chip mono"></p>
+    <div class="actions">
+      <button id="btn-create" class="btn btn--primary" type="button" data-nav>
+        <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-plus"></use></svg>@L["home.btn.create"]
+      </button>
+      <button id="btn-join" class="btn btn--glass" type="button" data-nav>@L["home.btn.join"]</button>
+      <button id="btn-how" class="btn btn--glass" type="button" data-nav>@L["home.btn.how"]</button>
+    </div>
+  </div>
+</section>

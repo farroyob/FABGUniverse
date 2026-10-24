@@ -1,0 +1,70 @@
+<dialog id="dlg-create" class="dialog glass" aria-labelledby="dlg-create-title">
+  <form method="dialog" id="create-form" class="dialog__body">
+    <h2 id="dlg-create-title" class="panel__title">@L["create.title"]</h2>
+    <fieldset class="field">
+      <legend class="field__label">@L["create.time"]</legend>
+      <div class="segmented" role="radiogroup" id="time-options">
+        <button type="button" role="radio" aria-checked="true" class="segmented__item" data-minutes="0" data-nav>@L["time.none"]</button>
+        <button type="button" role="radio" aria-checked="false" class="segmented__item" data-minutes="5" data-nav>@L["time.5"]</button>
+        <button type="button" role="radio" aria-checked="false" class="segmented__item" data-minutes="10" data-nav>@L["time.10"]</button>
+        <button type="button" role="radio" aria-checked="false" class="segmented__item" data-minutes="15" data-nav>@L["time.15"]</button>
+      </div>
+    </fieldset>
+    <fieldset class="field" id="increment-field" hidden>
+      <legend class="field__label">@L["create.increment"]</legend>
+      <div class="segmented" role="radiogroup" id="increment-options">
+        <button type="button" role="radio" aria-checked="true" class="segmented__item" data-seconds="0" data-nav>@L["inc.0"]</button>
+        <button type="button" role="radio" aria-checked="false" class="segmented__item" data-seconds="3" data-nav>@L["inc.3"]</button>
+        <button type="button" role="radio" aria-checked="false" class="segmented__item" data-seconds="5" data-nav>@L["inc.5"]</button>
+        <button type="button" role="radio" aria-checked="false" class="segmented__item" data-seconds="10" data-nav>@L["inc.10"]</button>
+      </div>
+    </fieldset>
+    <div class="form-actions">
+      <button type="submit" value="create" class="btn btn--primary" data-nav>@L["create.submit"]</button>
+      <button type="button" class="btn btn--ghost" data-close data-nav>@L["profile.cancel"]</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlg-join" class="dialog glass" aria-labelledby="dlg-join-title">
+  <form method="dialog" id="join-form" class="dialog__body" novalidate>
+    <h2 id="dlg-join-title" class="panel__title">@L["join.title"]</h2>
+    <label class="field">
+      <span class="field__label">@L["join.code"]</span>
+      <input id="join-code" class="input input--code mono" type="text" inputmode="text" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="join-hint join-error" data-nav>
+      <span class="field__hint" id="join-hint">@L["join.hint"]</span>
+    </label>
+    <p id="join-error" class="form-error" role="alert" hidden>@L["join.invalid"]</p>
+    <div class="form-actions">
+      <button type="submit" value="join" class="btn btn--primary" data-nav>@L["join.submit"]</button>
+      <button type="button" class="btn btn--ghost" data-close data-nav>@L["profile.cancel"]</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlg-how" class="dialog glass" aria-labelledby="dlg-how-title">
+  <div class="dialog__body">
+    <h2 id="dlg-how-title" class="panel__title">@L["how.title"] · <span id="how-game"></span></h2>
+    <ul id="how-list" class="how-list"></ul>
+    <div class="form-actions">
+      <button type="button" class="btn btn--primary" data-close data-nav>@L["nav.close"]</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="dlg-settings" class="dialog glass" aria-labelledby="dlg-settings-title">
+  <div class="dialog__body">
+    <h2 id="dlg-settings-title" class="panel__title">@L["settings.title"]</h2>
+    <div class="setting">
+      <div><strong>@L["settings.sound"]</strong></div>
+      <button id="setting-sound" type="button" class="switch" role="switch" aria-checked="true" aria-label="@L["settings.sound"]" data-nav></button>
+    </div>
+    <div class="setting">
+      <div><strong>@L["settings.lite"]</strong><p class="muted small">@L["settings.lite.hint"]</p></div>
+      <button id="setting-lite" type="button" class="switch" role="switch" aria-checked="false" aria-label="@L["settings.lite"]" data-nav></button>
+    </div>
+    <div class="form-actions">
+      <button type="button" class="btn btn--primary" data-close data-nav>@L["nav.close"]</button>
+    </div>
+  </div>
+</dialog>
