@@ -21,6 +21,7 @@ public sealed class RoomManager : IRoomManager
     private readonly ConcurrentDictionary<string, string> _roomByConnection = new(StringComparer.Ordinal);
     private readonly ConcurrentDictionary<string, string> _connectionByPlayer = new(StringComparer.Ordinal);
     private readonly ConcurrentDictionary<string, string> _roomByPlayer = new(StringComparer.Ordinal);
+    private readonly ConcurrentDictionary<string, string> _playerByConnection = new(StringComparer.Ordinal);
 
     public RoomManager(IGameEngineRegistry engines, TimeProvider time, IOptions<RoomManagerOptions> options)
     {
@@ -33,6 +34,9 @@ public sealed class RoomManager : IRoomManager
 
     public string? GetRoomCodeOfPlayer(string playerId) =>
         playerId is not null && _roomByPlayer.TryGetValue(playerId, out var code) ? code : null;
+
+    public string? GetPlayerIdOfConnection(string connectionId) =>
+        connectionId is not null && _playerByConnection.TryGetValue(connectionId, out var id) ? id : null;
 
     public string? GetConnectionId(string playerId) =>
         playerId is not null && _connectionByPlayer.TryGetValue(playerId, out var id) ? id : null;
@@ -436,6 +440,11 @@ public sealed class RoomManager : IRoomManager
     public async Task<OperationResult<DisconnectInfo>> HandleDisconnectAsync(
         string connectionId, CancellationToken ct = default)
     {
+        if (connectionId is not null)
+        {
+            _playerByConnection.TryRemove(connectionId, out _);
+        }
+
         if (connectionId is null || !_roomByConnection.TryRemove(connectionId, out var code))
         {
             return OperationResult<DisconnectInfo>.Fail(ErrorCodes.NotInRoom);
@@ -674,6 +683,7 @@ public sealed class RoomManager : IRoomManager
         if (_connectionByPlayer.TryRemove(playerId, out var connectionId))
         {
             _roomByConnection.TryRemove(new KeyValuePair<string, string>(connectionId, roomCode));
+            _playerByConnection.TryRemove(connectionId, out _);
         }
     }
 
@@ -682,8 +692,10 @@ public sealed class RoomManager : IRoomManager
         if (_connectionByPlayer.TryGetValue(playerId, out var previous) && previous != connectionId)
         {
             _roomByConnection.TryRemove(previous, out _);
+            _playerByConnection.TryRemove(previous, out _);
         }
 
+        _playerByConnection[connectionId] = playerId;
         _connectionByPlayer[playerId] = connectionId;
         _roomByConnection[connectionId] = roomCode;
         _roomByPlayer[playerId] = roomCode;

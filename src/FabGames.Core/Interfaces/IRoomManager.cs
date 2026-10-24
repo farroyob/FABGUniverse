@@ -72,6 +72,9 @@ public interface IRoomManager
 
     string? GetConnectionId(string playerId);
 
+    /// <summary>The player a connection authenticated as through create, join or rejoin.</summary>
+    string? GetPlayerIdOfConnection(string connectionId);
+
     /// <summary>Declares timeouts, expires disconnect grace periods and reports countdowns.</summary>
     Task<TimerReport> ProcessTimersAsync(CancellationToken ct = default);
 
