@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAB Games — Design directions</title>
+<!-- Specimen page for review only. The product self-hosts its fonts; this page loads them from Google Fonts for convenience. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Hanken+Grotesk:wght@400;500;600&family=Geist+Mono:wght@400;600&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; --page:#05080f; --text:#f4f7ff; --muted:#a9b4cc; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--page); color:var(--text); font:16px/1.5 "Hanken Grotesk", system-ui, sans-serif; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px 80px; }
+  header.top { padding: 40px 0 8px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  header.top img { height: 56px; width:auto; border-radius: 6px; }
+  header.top h1 { margin:0; font: 800 clamp(24px,4vw,36px)/1.1 "Archivo", sans-serif; font-stretch:125%; letter-spacing:-.01em; }
+  header.top p { margin:4px 0 0; color:var(--muted); max-width: 60ch; }
+  .reco { margin: 20px 0 8px; padding: 14px 18px; border:1px solid rgba(157,190,255,.22); border-radius:14px; background:rgba(41,114,245,.08); color:#d6e2ff; }
+  .reco b { color:#fff; }
+
+  .dir { margin-top: 48px; border-radius: 24px; padding: clamp(16px,3vw,32px); }
+  .dir h2 { margin: 0; display:flex; align-items:center; gap:14px; }
+  .dir .badge { display:inline-grid; place-items:center; width:40px; height:40px; font-weight:800; }
+  .dir .pitch { margin:8px 0 28px; max-width:70ch; }
+  .label { font-size:12px; letter-spacing:.14em; text-transform:uppercase; opacity:.7; margin: 28px 0 10px; }
+  .grid { display:grid; gap:20px; }
+  @media (min-width: 900px) { .grid.two { grid-template-columns: 1fr 1fr; } }
+
+  .swatches { display:grid; grid-template-columns: repeat(auto-fill,minmax(130px,1fr)); gap:10px; }
+  .sw { border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,.08); font-size:12px; }
+  .sw i { display:block; height:54px; }
+  .sw span { display:block; padding:8px 10px; background:rgba(255,255,255,.04); }
+  .sw b { display:block; font-weight:600; }
+
+  .stage { position:relative; aspect-ratio:16/9; overflow:hidden; isolation:isolate; }
+  .stage > .bg { position:absolute; inset:-4%; background-size:cover; background-position:center; z-index:-2; }
+  .stage > .shade { position:absolute; inset:0; z-index:-1; }
+  .bar { display:flex; justify-content:space-between; align-items:center; padding:3% 4%; font-size:clamp(10px,1.4vw,14px); }
+  .bar .me { display:flex; align-items:center; gap:10px; }
+  .bar .av { width:2.4em; height:2.4em; border-radius:50%; display:grid; place-items:center; font-weight:700; }
+  .row { position:absolute; left:4%; right:4%; bottom:23%; display:flex; gap:2.2%; align-items:flex-end; }
+  .info { position:absolute; left:4%; bottom:4%; right:4%; }
+  .info h3 { margin:0; font-size:clamp(16px,3vw,32px); line-height:1.1; }
+  .info p { margin:.3em 0 .7em; font-size:clamp(10px,1.4vw,14px); max-width:50ch; opacity:.85; }
+  .btns { display:flex; gap:.6em; flex-wrap:wrap; }
+  .btns span { font-size:clamp(9px,1.25vw,13px); padding:.55em 1.1em; font-weight:600; }
+
+  .board { display:flex; gap:20px; align-items:center; flex-wrap:wrap; }
+  .board svg { width:min(100%,280px); height:auto; display:block; }
+  .board ul { margin:0; padding:0 0 0 18px; font-size:14px; max-width:44ch; }
+  .frames { display:grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .frame { aspect-ratio:16/10; position:relative; overflow:hidden; display:grid; place-items:center; text-align:center; font-size:12px; }
+  .frame small { position:absolute; left:8px; top:6px; opacity:.7; font-size:11px; }
+  .frame em { font-style:normal; position:absolute; left:8px; right:8px; bottom:6px; opacity:.85; }
+  .type p { margin:.2em 0; }
+
+  /* ───────── A · Night Vault ───────── */
+  .dir-a { --ink:#080c18; --panel:#0d1426; --raised:#151f3a; --blue:#2972f5; --b6:#1f5bd1; --b4:#5b94ff; --b3:#9dbeff; --ember:#e8a15c;
+           background: radial-gradient(120% 90% at 50% 0%, #0f1a36 0%, #080c18 55%); border:1px solid rgba(157,190,255,.14); }
+  .dir-a .badge { background:var(--b6); border-radius:12px; font-family:Archivo; }
+  .dir-a h2 span.t { font: 800 clamp(22px,3.4vw,34px)/1 "Archivo", sans-serif; font-stretch:125%; }
+  .dir-a .pitch { color:var(--muted); }
+  .dir-a .disp { font: 800 clamp(34px,6vw,64px)/.95 "Archivo", sans-serif; font-stretch:125%; letter-spacing:-.02em; }
+  .dir-a .mono { font-family:"Geist Mono", ui-monospace, monospace; }
+  .dir-a .stage { border-radius:20px; background:#05080f; box-shadow:0 30px 80px -30px rgba(41,114,245,.4); }
+  .dir-a .stage .bg { background-image:url("../assets-inbox/covers/chess.jpg"); filter:saturate(.9) brightness(.7); }
+  .dir-a .stage .shade { background: linear-gradient(180deg, rgba(5,8,15,.55), rgba(5,8,15,.1) 40%, rgba(5,8,15,.92)); }
+  .dir-a .bar .av { background:var(--raised); box-shadow:0 0 0 2px var(--b4), 0 0 18px rgba(41,114,245,.6); }
+  .dir-a .tile { width:17%; aspect-ratio:4/5; border-radius:1.4em; background-size:cover; background-position:center; opacity:.55; transform:scale(.96); position:relative; box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
+  .dir-a .tile.on { opacity:1; transform:scale(1.08); box-shadow: 0 0 0 1px rgba(157,190,255,.5), 0 2em 5em -1em rgba(41,114,245,.55), inset 0 1px 0 rgba(255,255,255,.25); }
+  .dir-a .tile span { position:absolute; left:10%; bottom:8%; font:800 clamp(9px,1.6vw,17px)/1 "Archivo"; font-stretch:125%; text-shadow:0 2px 12px #000; }
+  .dir-a .t1 { background-image:linear-gradient(0deg,rgba(5,8,15,.8),transparent 55%), url("../assets-inbox/covers/chess.jpg"); }
+  .dir-a .t2 { background-image:linear-gradient(0deg,rgba(5,8,15,.8),transparent 55%), url("../assets-inbox/covers/checkers.jpg"); }
+  .dir-a .t3 { background:linear-gradient(160deg,#16213f,#0b1226); display:grid; place-items:center; }
+  .dir-a .btns .p { background:var(--b6); border-radius:999px; color:#fff; box-shadow:0 8px 24px -8px rgba(41,114,245,.8); }
+  .dir-a .btns .s { background:rgba(255,255,255,.08); border-radius:999px; backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.14); }
+  .dir-a .frame { background:radial-gradient(80% 70% at 50% 70%, rgba(41,114,245,.25), #05080f 70%); border-radius:12px; border:1px solid rgba(157,190,255,.12); }
+  .dir-a .wm { font:800 clamp(14px,2vw,20px)/1 "Archivo"; font-stretch:125%; }
+
+  /* ───────── B · Signal Deck ───────── */
+  .dir-b { --ink:#070a12; --deck:#0e1320; --steel:#1a2236; --rule:#2a3550; --blue:#2972f5; --b4:#5b94ff; --ice:#dce8ff; --mute:#8390ae; --copper:#e58a4a;
+           --cut: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+           background:#070a12; border:1px solid #2a3550; border-radius:6px; }
+  .dir-b .badge { background:var(--blue); clip-path:var(--cut); font:800 20px "Barlow Condensed"; }
+  .dir-b h2 span.t { font:800 clamp(24px,3.6vw,38px)/1 "Barlow Condensed", sans-serif; text-transform:uppercase; letter-spacing:.04em; }
+  .dir-b .pitch { color:var(--mute); font-family:Barlow, sans-serif; }
+  .dir-b { font-family:Barlow, sans-serif; }
+  .dir-b .disp { font:800 clamp(40px,7vw,76px)/.9 "Barlow Condensed", sans-serif; text-transform:uppercase; letter-spacing:.01em; }
+  .dir-b .mono { font-family:"IBM Plex Mono", ui-monospace, monospace; }
+  .dir-b .stage { background:#070a12; border:1px solid var(--rule); }
+  .dir-b .stage .bg { background-image:url("../assets-inbox/covers/checkers.jpg"); filter:grayscale(.55) contrast(1.1) brightness(.5); }
+  .dir-b .stage .shade { background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px), linear-gradient(180deg, rgba(7,10,18,.5), rgba(7,10,18,.9)); }
+  .dir-b .bar .av { background:var(--steel); clip-path:var(--cut); border-radius:0; }
+  .dir-b .tile { width:25%; aspect-ratio:16/9; background:var(--deck); clip-path:var(--cut); position:relative; opacity:.8; display:flex; align-items:flex-end; padding:.8em 1em; border:0; }
+  .dir-b .tile::before { content:""; position:absolute; inset:0; background-size:cover; background-position:center; opacity:.55; filter:grayscale(.4); }
+  .dir-b .tile.on { opacity:1; transform:scale(1.04); outline:2px solid var(--blue); outline-offset:4px; }
+  .dir-b .tile.on::before { opacity:.9; filter:none; }
+  .dir-b .tile.t1::before { background-image:url("../assets-inbox/covers/chess.jpg"); }
+  .dir-b .tile.t2::before { background-image:url("../assets-inbox/covers/checkers.jpg"); }
+  .dir-b .tile span { position:relative; font:800 clamp(12px,2vw,22px)/1 "Barlow Condensed"; text-transform:uppercase; letter-spacing:.06em; }
+  .dir-b .tile.on span::after { content:" ▸"; color:var(--copper); }
+  .dir-b .btns .p { background:var(--blue); clip-path:var(--cut); font-family:"Barlow Condensed"; text-transform:uppercase; letter-spacing:.08em; font-size:clamp(10px,1.5vw,15px); }
+  .dir-b .btns .s { border:1px solid var(--rule); font-family:"Barlow Condensed"; text-transform:uppercase; letter-spacing:.08em; font-size:clamp(10px,1.5vw,15px); }
+  .dir-b .info h3 { font:800 clamp(18px,3.4vw,38px)/1 "Barlow Condensed"; text-transform:uppercase; letter-spacing:.03em; }
+  .dir-b .frame { background:#0b1020; border:1px solid var(--rule); clip-path:var(--cut); }
+  .dir-b .wm { font:800 clamp(14px,2.2vw,22px)/1 "Barlow Condensed"; text-transform:uppercase; letter-spacing:.12em; }
+  .dir-b .frame svg { position:absolute; inset:0; width:100%; height:100%; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <img src="../assets-inbox/brand/logo-icon.jpg" alt="FAB Games shield mark">
+    <div>
+      <h1>FAB Games — design directions</h1>
+      <p>Phase 3 specimen. Both directions use the supplied logo colours and key art; neither copies any console maker's assets or symbols. Details are in <code>DESIGN.md</code>.</p>
+    </div>
+  </header>
+  <div class="reco"><b>Recommendation:</b> A, Night Vault, borrowing three things from B: the 12° logo cut as a recurring shape, mono scoreboard clocks, and B's quick snap for in-game feedback.</div>
+
+  <!-- ═══════════════ A ═══════════════ -->
+  <section class="dir dir-a" aria-labelledby="a-title">
+    <h2 id="a-title"><span class="badge">A</span><span class="t">Night Vault</span></h2>
+    <p class="pitch">The key art turned into an interface: deep blue-black, rim light, glass panels, slow atmospheric motion. Light is the material.</p>
+
+    <div class="label">Palette</div>
+    <div class="swatches">
+      <div class="sw"><i style="background:#05080f"></i><span><b>Page</b>#05080F</span></div>
+      <div class="sw"><i style="background:#0d1426"></i><span><b>Panel</b>#0D1426</span></div>
+      <div class="sw"><i style="background:#151f3a"></i><span><b>Raised</b>#151F3A</span></div>
+      <div class="sw"><i style="background:#2972f5"></i><span><b>Brand blue</b>#2972F5 · graphics</span></div>
+      <div class="sw"><i style="background:#1f5bd1"></i><span><b>Button</b>#1F5BD1 · 6.0:1 white</span></div>
+      <div class="sw"><i style="background:#5b94ff"></i><span><b>Blue text</b>#5B94FF · 6.6:1</span></div>
+      <div class="sw"><i style="background:#e8a15c"></i><span><b>Ember</b>#E8A15C · your turn</span></div>
+      <div class="sw"><i style="background:#ff6b7a"></i><span><b>Danger</b>#FF6B7A · check</span></div>
+    </div>
+
+    <div class="label">Type</div>
+    <div class="type">
+      <p class="disp">Victory</p>
+      <p style="font-family:'Hanken Grotesk';color:#a9b4cc;max-width:56ch">Archivo Expanded for display echoes the wordmark. Hanken Grotesk carries interface text — create a room, share the code, make your move.</p>
+      <p class="mono" style="font-size:28px;letter-spacing:.04em">04:58 &nbsp; <span style="color:#5b94ff">K7M4PX</span></p>
+    </div>
+
+    <div class="label">Dashboard (focused tile: Chess)</div>
+    <div class="stage" role="img" aria-label="Mock of the dashboard in direction A">
+      <div class="bg"></div><div class="shade"></div>
+      <div class="bar"><span class="wm">FAB GAMES</span><span class="me"><span class="mono">21:47</span><span class="av">M</span> Mara</span></div>
+      <div class="row"><div class="tile t1 on"><span>Chess</span></div><div class="tile t2"><span>Checkers</span></div><div class="tile t3"><span style="position:static;opacity:.6">Soon</span></div></div>
+      <div class="info"><h3 class="disp-sm" style="font:800 clamp(16px,3vw,32px)/1.1 Archivo;font-stretch:125%">Chess</h3><p>Two players. The classic duel, with clocks if you want them.</p><div class="btns"><span class="p">Create room</span><span class="s">Join with code</span><span class="s">How to play</span></div></div>
+    </div>
+
+    <div class="label">Board, pieces and states</div>
+    <div class="board">
+      <svg viewBox="0 0 240 240" role="img" aria-label="Marble board snippet with obsidian and pearl pieces and a checkers disc">
+        <defs>
+          <linearGradient id="a-light" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7deee"/><stop offset="1" stop-color="#b9c5dc"/></linearGradient>
+          <linearGradient id="a-dark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b2340"/><stop offset="1" stop-color="#101730"/></linearGradient>
+          <radialGradient id="a-obs" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#2a3558"/><stop offset=".6" stop-color="#0b1020"/><stop offset="1" stop-color="#05080f"/></radialGradient>
+          <radialGradient id="a-pearl" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#d9e1f1"/><stop offset="1" stop-color="#a9b6d2"/></radialGradient>
+          <radialGradient id="a-disc" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#3a4a78"/><stop offset=".7" stop-color="#101933"/><stop offset="1" stop-color="#070b18"/></radialGradient>
+        </defs>
+        <rect width="240" height="240" rx="8" fill="#2a3550"/>
+        <g transform="translate(6 6)">
+          <rect width="228" height="228" fill="#0b1020"/>
+          <g>
+            <rect x="0"   y="0"   width="57" height="57" fill="url(#a-light)"/><rect x="57"  y="0"   width="57" height="57" fill="url(#a-dark)"/><rect x="114" y="0"   width="57" height="57" fill="url(#a-light)"/><rect x="171" y="0"   width="57" height="57" fill="url(#a-dark)"/>
+            <rect x="0"   y="57"  width="57" height="57" fill="url(#a-dark)"/><rect x="57"  y="57"  width="57" height="57" fill="url(#a-light)"/><rect x="114" y="57"  width="57" height="57" fill="url(#a-dark)"/><rect x="171" y="57"  width="57" height="57" fill="url(#a-light)"/>
+            <rect x="0"   y="114" width="57" height="57" fill="url(#a-light)"/><rect x="57"  y="114" width="57" height="57" fill="url(#a-dark)"/><rect x="114" y="114" width="57" height="57" fill="url(#a-light)"/><rect x="171" y="114" width="57" height="57" fill="url(#a-dark)"/>
+            <rect x="0"   y="171" width="57" height="57" fill="url(#a-dark)"/><rect x="57"  y="171" width="57" height="57" fill="url(#a-light)"/><rect x="114" y="171" width="57" height="57" fill="url(#a-dark)"/><rect x="171" y="171" width="57" height="57" fill="url(#a-light)"/>
+          </g>
+          <rect x="57" y="114" width="57" height="57" fill="#e8a15c" opacity=".35"/>
+          <circle cx="142" cy="142" r="8" fill="#2972f5" opacity=".85"/>
+          <circle cx="199" cy="85" r="26" fill="none" stroke="#5b94ff" stroke-width="3"/>
+          <!-- obsidian pawn -->
+          <g transform="translate(28 28)"><ellipse cx="0" cy="20" rx="17" ry="5" fill="#000" opacity=".35"/><path d="M-14 18 L-7 -3 Q0 -8 7 -3 L14 18 Z" fill="url(#a-obs)" stroke="#5b94ff" stroke-opacity=".55"/><circle cx="0" cy="-12" r="9" fill="url(#a-obs)" stroke="#5b94ff" stroke-opacity=".55"/><rect x="-14" y="13" width="28" height="3.2" rx="1.6" fill="#e8a15c"/></g>
+          <!-- pearl pawn -->
+          <g transform="translate(85 142)"><ellipse cx="0" cy="20" rx="17" ry="5" fill="#000" opacity=".3"/><path d="M-14 18 L-7 -3 Q0 -8 7 -3 L14 18 Z" fill="url(#a-pearl)" stroke="#8c9bbd"/><circle cx="0" cy="-12" r="9" fill="url(#a-pearl)" stroke="#8c9bbd"/><rect x="-14" y="13" width="28" height="3.2" rx="1.6" fill="#e8a15c"/></g>
+          <!-- checkers discs -->
+          <g transform="translate(199 85)"><circle r="19" fill="url(#a-disc)" stroke="#5b94ff" stroke-opacity=".7" stroke-width="2"/><circle r="12" fill="none" stroke="#5b94ff" stroke-opacity=".45"/></g>
+          <g transform="translate(199 199)"><circle r="19" fill="url(#a-pearl)" stroke="#8c9bbd" stroke-width="2"/><circle r="12" fill="none" stroke="#8c9bbd" stroke-opacity=".6"/><circle r="5" fill="#e8a15c"/></g>
+        </g>
+      </svg>
+      <ul>
+        <li><b>Marble board</b> with a beveled frame; cool marble vs ink squares, 11.4:1 apart.</li>
+        <li><b>Obsidian and pearl</b> pieces with a copper band, lifted from the key art.</li>
+        <li><b>Last move</b> underlit in ember. <b>Legal moves</b> as soft blue dots, capture targets ringed.</li>
+        <li><b>Checkers</b>: steel-rimmed discs; a king wears a copper centre.</li>
+      </ul>
+    </div>
+
+    <div class="label">Boot storyboard · 3.8 s · skippable</div>
+    <div class="frames">
+      <div class="frame"><small>0.0 s</small><em>Black</em></div>
+      <div class="frame" style="background:radial-gradient(60% 50% at 50% 100%, rgba(41,114,245,.5), #05080f 70%)"><small>0.4 s</small><em>Blue bloom rises, dust fades up</em></div>
+      <div class="frame"><small>1.2 s</small><img src="../assets-inbox/brand/logo-icon.jpg" alt="" style="height:60%;border-radius:6px"><em>Shield strokes assemble, light sweep</em></div>
+      <div class="frame"><small>2.2 s</small><span class="wm" style="font-size:18px">FAB GAMES</span><em>Wordmark rises · chime</em></div>
+      <div class="frame"><small>3.2 s</small><span style="color:#a9b4cc">Toca para empezar</span><em>Breathing prompt</em></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ B ═══════════════ -->
+  <section class="dir dir-b" aria-labelledby="b-title">
+    <h2 id="b-title"><span class="badge">B</span><span class="t">Signal Deck</span></h2>
+    <p class="pitch">Tournament-broadcast clarity. Flat ink, hairline frames, and the logo's steep cut angle as the only ornament. One warm colour for "live".</p>
+
+    <div class="label">Palette</div>
+    <div class="swatches">
+      <div class="sw"><i style="background:#070a12"></i><span><b>Ink</b>#070A12</span></div>
+      <div class="sw"><i style="background:#0e1320"></i><span><b>Deck</b>#0E1320</span></div>
+      <div class="sw"><i style="background:#1a2236"></i><span><b>Steel</b>#1A2236</span></div>
+      <div class="sw"><i style="background:#2a3550"></i><span><b>Rule</b>#2A3550</span></div>
+      <div class="sw"><i style="background:#2972f5"></i><span><b>Signal blue</b>#2972F5</span></div>
+      <div class="sw"><i style="background:#dce8ff"></i><span style="color:#fff"><b>Ice</b>#DCE8FF · 16.1:1</span></div>
+      <div class="sw"><i style="background:#8390ae"></i><span><b>Mute</b>#8390AE · 6.2:1</span></div>
+      <div class="sw"><i style="background:#e58a4a"></i><span><b>Live copper</b>#E58A4A · 7.6:1</span></div>
+    </div>
+
+    <div class="label">Type</div>
+    <div class="type">
+      <p class="disp">Victory</p>
+      <p style="color:#8390ae;max-width:56ch">Barlow Condensed in caps for headings and the scoreboard; Barlow for interface text — create a room, share the code, make your move.</p>
+      <p class="mono" style="font-size:28px;letter-spacing:.04em">04:58 &nbsp; <span style="color:#5b94ff">K7M4PX</span></p>
+    </div>
+
+    <div class="label">Dashboard (focused tile: Checkers)</div>
+    <div class="stage" role="img" aria-label="Mock of the dashboard in direction B">
+      <div class="bg"></div><div class="shade"></div>
+      <div class="bar"><span class="wm">FAB GAMES</span><span class="me"><span class="mono">21:47</span><span class="av">M</span> MARA</span></div>
+      <div class="row" style="gap:2.5%"><div class="tile t1"><span>Chess</span></div><div class="tile t2 on"><span>Checkers</span></div><div class="tile t3"><span>Soon</span></div></div>
+      <div class="info"><h3>Checkers</h3><p>Two players. Forced captures, long jumps, no mercy.</p><div class="btns"><span class="p">Create room</span><span class="s">Join with code</span><span class="s">How to play</span></div></div>
+    </div>
+
+    <div class="label">Board, pieces and states</div>
+    <div class="board">
+      <svg viewBox="0 0 240 240" role="img" aria-label="Duotone board snippet with geometric pieces">
+        <rect width="240" height="240" fill="#2a3550"/>
+        <g transform="translate(6 6)">
+          <g>
+            <rect x="0" y="0" width="57" height="57" fill="#34456e"/><rect x="57" y="0" width="57" height="57" fill="#1b2440"/><rect x="114" y="0" width="57" height="57" fill="#34456e"/><rect x="171" y="0" width="57" height="57" fill="#1b2440"/>
+            <rect x="0" y="57" width="57" height="57" fill="#1b2440"/><rect x="57" y="57" width="57" height="57" fill="#34456e"/><rect x="114" y="57" width="57" height="57" fill="#1b2440"/><rect x="171" y="57" width="57" height="57" fill="#34456e"/>
+            <rect x="0" y="114" width="57" height="57" fill="#34456e"/><rect x="57" y="114" width="57" height="57" fill="#1b2440"/><rect x="114" y="114" width="57" height="57" fill="#34456e"/><rect x="171" y="114" width="57" height="57" fill="#1b2440"/>
+            <rect x="0" y="171" width="57" height="57" fill="#1b2440"/><rect x="57" y="171" width="57" height="57" fill="#34456e"/><rect x="114" y="171" width="57" height="57" fill="#1b2440"/><rect x="171" y="171" width="57" height="57" fill="#34456e"/>
+          </g>
+          <rect x="59" y="116" width="53" height="53" fill="none" stroke="#e58a4a" stroke-width="3"/>
+          <path d="M142 134 l8 8 -8 8 -8 -8z" fill="#5b94ff"/>
+          <path d="M199 60 l11 25 -11 25 -11 -25z" fill="none" stroke="#5b94ff" stroke-width="3"/>
+          <g transform="translate(28 28)"><path d="M-13 18 H13 L8 0 H-8z" fill="#070a12" stroke="#dce8ff" stroke-width="2"/><rect x="-5" y="-5" width="10" height="7" fill="#070a12" stroke="#dce8ff" stroke-width="2"/><circle cy="-12" r="7" fill="#070a12" stroke="#dce8ff" stroke-width="2"/></g>
+          <g transform="translate(85 142)"><path d="M-13 18 H13 L8 0 H-8z" fill="#dce8ff"/><rect x="-5" y="-5" width="10" height="7" fill="#dce8ff"/><circle cy="-12" r="7" fill="#dce8ff"/></g>
+          <g transform="translate(199 85)"><circle r="19" fill="#070a12" stroke="#2972f5" stroke-width="3"/><circle r="11" fill="none" stroke="#2972f5" stroke-width="2"/></g>
+          <g transform="translate(199 199)"><circle r="19" fill="#dce8ff"/><circle r="11" fill="none" stroke="#8390ae" stroke-width="2"/><path d="M-6 3 l6 -6 6 6" fill="none" stroke="#070a12" stroke-width="3"/></g>
+        </g>
+      </svg>
+      <ul>
+        <li><b>Duotone board</b> in two blue inks, mono coordinates.</li>
+        <li><b>Constructed silhouettes</b>: white vs blue-black, outline only, no ornament.</li>
+        <li><b>Last move</b> in copper outline. <b>Legal moves</b> as small diamonds, captures as outlined diamonds.</li>
+        <li><b>Checkers</b>: flat discs with a concentric ring; a king carries a chevron.</li>
+      </ul>
+    </div>
+
+    <div class="label">Boot storyboard · 3.4 s · skippable</div>
+    <div class="frames">
+      <div class="frame"><small>0.0 s</small><em>Black</em></div>
+      <div class="frame"><small>0.3 s</small><svg viewBox="0 0 160 100" aria-hidden="true"><g stroke="#2a3550" stroke-width="1"><path d="M80 10V90M60 20V80M100 20V80M40 30V70M120 30V70M20 40H140M30 55H130M20 70H140"/></g></svg><em>Tick grid draws from the centre</em></div>
+      <div class="frame"><small>0.9 s</small><svg viewBox="0 0 160 100" aria-hidden="true"><path d="M50 78 L40 28 L80 14 L120 28 L110 78 L80 92Z" fill="none" stroke="#2972f5" stroke-width="3" stroke-dasharray="6 5"/></svg><em>Shield strokes draw on like blueprint lines</em></div>
+      <div class="frame"><small>1.8 s</small><span class="wm">FAB GAMES</span><em>Wordmark wipes in along the 12° cut · click</em></div>
+      <div class="frame"><small>3.0 s</small><span class="mono" style="color:#dce8ff;letter-spacing:.14em;font-size:11px">PRESS ANY BUTTON ▌</span><em>Blinking tick</em></div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
