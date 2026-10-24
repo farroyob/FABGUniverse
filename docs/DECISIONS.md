@@ -41,6 +41,19 @@ Every place where the build differs from, or adds to, `FAB-GAMES-BRIEF.md`, with
 - Leaving a running game counts as resigning. A lobby or finished room is left automatically when the same player creates or joins another room; a running game blocks that with `ALREADY_IN_GAME`.
 - The MVC template's bootstrap and jQuery files are still in `wwwroot/lib` and will be replaced in Phase 4.
 
+## Front-end
+
+- **One page per concern, one module per view.** `js/home/index.js` (boot, profiles, dashboard) and `js/play/room.js` (lobby, game, result) orchestrate small modules; shared code lives in `js/core`. A game renderer is `js/games/<id>-board.js` plus one line in `js/games/registry.js`.
+- **Create goes through the room page.** "Create room" navigates to `/{culture}/play/new?game=...&tc=...`; the room page opens the hub connection, creates the room and rewrites the URL to `/{culture}/play/{code}`. A refresh then rejoins instead of creating another room, and the home page never holds a hub connection.
+- **A game is identified by room code plus start time**, not by `gamesPlayed`. A rematch keeps the room's count but restarts at state version 1, so version comparison alone would have dropped the first snapshot of the new game.
+- **Snapshots are applied one at a time** (`GameScreen.update` queues them and skips superseded ones), because board creation is asynchronous and a rejoin response races with the server's own state push.
+- **Strict content security policy** (`script-src 'self'; style-src 'self'`). No inline scripts or styles anywhere; the translation dictionary is a `type="application/json"` data block; dynamic styling goes through the CSSOM. Page tests enforce this.
+- **Self-hosted everything**: Latin-subset WOFF2 fonts, the SignalR client (8.0.7, MIT) and all art. `THIRD-PARTY-NOTICES.md` lists them.
+- **Strings** live in `tools/strings.py` and are generated into `SharedResource.{es,en}.resx`; the whole dictionary is sent to the client. Resx keys are case-insensitive, so piece names are namespaced (`piece.chess.K`, `piece.checkers.king`).
+- **Audio is created on the first user gesture.** The boot chime is due at 2.2 s, before any gesture, so it plays the moment the player first presses something.
+- **The preselected profile shows a focus ring even before any input**, and large screens scale the root font size (112.5% from 1600 px, 137.5% from 2200 px) for TV distance.
+- **Result banner timing**: the banner opens 0.9 s after the final move so the last move is seen; a rejoin into a finished game shows it after 0.12 s and does not count the game again for trophies.
+
 ## Process
 
 - The brief's `git init` was a no-op (the repository already existed); work is on `feature/foundation`.

@@ -145,6 +145,7 @@ export class GameScreen {
 
     this.chat.setMe(youId);
     $("game-code").textContent = room.code;
+    $("game-h1").textContent = `${t(`home.${room.gameTypeId}.title`)} · ${room.code}`;
     this.board.update(game, { orientation: mySide, interactive, animate, myColor: mySide });
 
     this.renderCard($("card-top"), opponent, mySide === "white" ? "black" : "white", false, game, room);
