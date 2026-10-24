@@ -51,8 +51,8 @@
 /* ───────── Highlights ───────── */
 
 .hl { pointer-events: none; }
-.hl--last { fill: rgba(232, 161, 92, 0.38); }
-.hl--selected { fill: rgba(91, 148, 255, 0.45); }
+.hl--last { fill: rgba(240, 176, 104, 0.3); stroke: rgba(244, 184, 120, 0.95); stroke-width: 5; }
+.hl--selected { fill: rgba(91, 148, 255, 0.3); stroke: rgba(120, 168, 255, 0.95); stroke-width: 5; }
 .hl--doomed { fill: rgba(255, 107, 122, 0.3); }
 .hl--check {
   fill: rgba(255, 107, 122, 0.62);

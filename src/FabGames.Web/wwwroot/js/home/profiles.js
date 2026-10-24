@@ -129,7 +129,11 @@ export function render() {
 export function focusPreselected() {
   const current = getCurrent();
   const target = current && list.querySelector(`.profile-bubble[data-id="${CSS.escape(current.id)}"]`);
-  if (target) target.focus({ preventScroll: true });
-  else if (!form.hidden) nameInput.focus();
+  if (target) {
+    // Show the ring even before any keyboard input: the last profile is visibly preselected.
+    target.classList.add("is-focus");
+    target.addEventListener("blur", () => target.classList.remove("is-focus"), { once: true });
+    target.focus({ preventScroll: true });
+  } else if (!form.hidden) nameInput.focus();
   else focusFirst(document.getElementById("stage-profiles"));
 }

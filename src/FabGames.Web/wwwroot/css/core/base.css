@@ -74,6 +74,15 @@
   box-sizing: border-box;
 }
 
+/* Big screens (TVs, desktops) get proportionally bigger type and controls: rem-based sizes scale with this. */
+@media (min-width: 1600px) {
+  html { font-size: 112.5%; }
+}
+
+@media (min-width: 2200px) {
+  html { font-size: 137.5%; }
+}
+
 html {
   min-height: 100%;
   background: var(--ink-950);

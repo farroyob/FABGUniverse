@@ -436,7 +436,11 @@ export class BoardCore {
       this.o.onGrab(idx);
       piece.el.classList.add("is-lifted");
     }
-    this.svg.setPointerCapture?.(e.pointerId);
+    try {
+      this.svg.setPointerCapture?.(e.pointerId);
+    } catch {
+      // Not an active pointer (synthetic events); dragging still works without capture.
+    }
   }
 
   #pointerMove(e) {
