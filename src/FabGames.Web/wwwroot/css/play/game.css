@@ -1,0 +1,347 @@
+/* FAB Games · game screen: stage, player cards, clocks, move list, controls and the result banner */
+
+.game {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  animation: stage-in 0.45s var(--ease-out) both;
+}
+
+.game__layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+  gap: clamp(16px, 3vw, 40px);
+  align-items: center;
+  padding: 4px var(--gutter) max(20px, env(safe-area-inset-bottom));
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.game__stage {
+  display: grid;
+  gap: 10px;
+  /* The board is as large as the screen height allows once both player cards are counted. */
+  width: min(100%, calc(100dvh - 290px));
+  min-width: 280px;
+  justify-self: center;
+}
+
+.player-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 72px;
+  padding: 8px 14px 8px 8px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(13, 20, 38, 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+html[data-lite] .player-card { -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+.player-card.is-turn {
+  border-color: rgba(232, 161, 92, 0.65);
+  box-shadow: 0 0 0 1px rgba(232, 161, 92, 0.25), 0 14px 40px -18px rgba(232, 161, 92, 0.6);
+}
+
+.player-card__info {
+  min-width: 0;
+  flex: 1;
+  display: grid;
+  gap: 2px;
+}
+
+.player-card__name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  min-width: 0;
+}
+
+.player-card__name > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-card__sub {
+  font-size: 0.82rem;
+  color: var(--text-2);
+}
+
+.dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+
+.dot.is-off {
+  background: var(--danger);
+  animation: ghost 0.9s ease-in-out infinite alternate;
+}
+
+.captured {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 20px;
+}
+
+.captured__piece {
+  width: 20px;
+  height: 20px;
+  margin-right: -6px;
+}
+
+.captured__piece svg { width: 100%; height: 100%; display: block; }
+.captured--count { color: var(--text-2); font-size: 0.85rem; }
+
+/* The clock plate borrows the logo's cut. */
+.clock {
+  --cut: 9px;
+  flex: none;
+  min-width: 5.6ch;
+  padding: 0.3em 0.75em;
+  text-align: center;
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-2);
+  background: rgba(5, 8, 15, 0.7);
+  clip-path: var(--cut-shape);
+  transition: color 0.2s;
+}
+
+.clock.is-running { color: var(--text-1); background: rgba(31, 91, 209, 0.45); }
+.clock.is-running.is-low,
+.clock.is-low { color: #ffd5da; background: rgba(255, 107, 122, 0.3); }
+
+/* ───────── Side panel ───────── */
+
+.game__side {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  max-height: calc(100dvh - 120px);
+}
+
+.turn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.turn__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text-3);
+}
+
+.turn.is-mine .turn__dot {
+  background: var(--ember);
+  box-shadow: 0 0 0 4px rgba(232, 161, 92, 0.25);
+  animation: ghost 1s ease-in-out infinite alternate;
+}
+
+.turn.is-mine { color: #fff; }
+.turn:not(.is-mine) { color: var(--text-2); }
+
+.status {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(91, 148, 255, 0.14);
+  color: var(--blue-300);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.status.is-danger {
+  background: rgba(255, 107, 122, 0.16);
+  color: #ffc2c8;
+}
+
+.side-title {
+  margin: 4px 0 -4px;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.moves {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  display: grid;
+  gap: 2px;
+}
+
+.moves__row {
+  display: grid;
+  grid-template-columns: 2.6ch 1fr 1fr;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+}
+
+.moves__row:nth-child(odd) { background: rgba(255, 255, 255, 0.04); }
+.moves__n { color: var(--text-3); }
+.moves__m.is-last { color: var(--ember); font-weight: 600; }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  min-width: 1.4em;
+  padding: 0 0.4em;
+  border-radius: 999px;
+  background: var(--ember);
+  color: #1d1306;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.draw-offer {
+  display: grid;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(232, 161, 92, 0.5);
+  background: rgba(232, 161, 92, 0.1);
+}
+
+.draw-offer p { font-weight: 600; }
+
+.chat-drawer {
+  animation: dialog-in 0.25s var(--ease-out);
+}
+
+/* ───────── Result banner ───────── */
+
+.gameover {
+  --cut: 26px;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-1);
+  overflow: hidden;
+}
+
+.gameover[open] {
+  display: grid;
+  place-items: center;
+}
+
+.gameover::backdrop {
+  background: radial-gradient(70% 60% at 50% 50%, rgba(5, 8, 15, 0.55), rgba(3, 5, 10, 0.88));
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  animation: fade-in 0.4s var(--ease-out);
+}
+
+.gameover__banner {
+  width: min(760px, 92vw);
+  padding: clamp(28px, 6vw, 56px);
+  text-align: center;
+  clip-path: var(--cut-shape);
+  background:
+    radial-gradient(90% 120% at 50% 0%, rgba(41, 114, 245, 0.35), rgba(13, 20, 38, 0) 70%),
+    rgba(10, 16, 32, 0.96);
+  animation: banner-in 0.6s var(--spring) both;
+}
+
+.gameover__banner.is-loss {
+  background:
+    radial-gradient(90% 120% at 50% 0%, rgba(255, 107, 122, 0.22), rgba(13, 20, 38, 0) 70%),
+    rgba(10, 16, 32, 0.96);
+}
+
+.gameover__banner.is-draw {
+  background:
+    radial-gradient(90% 120% at 50% 0%, rgba(169, 180, 204, 0.2), rgba(13, 20, 38, 0) 70%),
+    rgba(10, 16, 32, 0.96);
+}
+
+@keyframes banner-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+.gameover__eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue-300);
+  margin-bottom: 8px;
+}
+
+.gameover__title {
+  font-size: clamp(3rem, 12vw, 6.5rem);
+  background: linear-gradient(180deg, #fff 30%, var(--blue-300));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.is-loss .gameover__title { background-image: linear-gradient(180deg, #fff 20%, #ff9aa5); }
+.is-draw .gameover__title { background-image: linear-gradient(180deg, #fff 30%, #a9b4cc); }
+
+.gameover__reason {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: var(--text-2);
+}
+
+.gameover__stats {
+  display: flex;
+  justify-content: center;
+  gap: clamp(24px, 6vw, 56px);
+  margin: 26px 0 22px;
+}
+
+.gameover__stats div { display: grid; gap: 2px; }
+.gameover__stats dt { font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+.gameover__stats dd { margin: 0; font-size: 1.6rem; font-weight: 600; }
+
+.gameover__actions { justify-content: center; }
+
+@media (max-width: 900px) {
+  .game__layout {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .game__stage { width: min(100%, calc(100dvh - 330px)); }
+  .game__side { max-height: none; }
+  .moves { max-height: 130px; }
+}
+
+@media (max-width: 520px) {
+  .game__stage { min-width: 0; width: 100%; }
+  .player-card { min-height: 60px; }
+  .player-card .avatar--md { width: 44px; height: 44px; }
+  .controls .btn { flex: 1 1 auto; }
+}

@@ -338,9 +338,6 @@
   letter-spacing: 0.04em;
 }
 
-#sound-toggle .icon--off { display: none; }
-#sound-toggle[aria-pressed="false"] .icon--on { display: none; }
-#sound-toggle[aria-pressed="false"] .icon--off { display: block; color: var(--text-3); }
 
 .profile-chip {
   display: inline-flex;

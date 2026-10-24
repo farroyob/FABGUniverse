@@ -1,0 +1,11 @@
+@* Chat component. Wired by js/play/chat.js; messages are inserted as text, never HTML. *@
+<div class="chat" data-chat>
+  <ol class="chat__log" data-chat-log aria-label="@L["chat.title"]"></ol>
+  <p class="chat__empty muted small" data-chat-empty>@L["chat.empty"]</p>
+  <form class="chat__form" data-chat-form autocomplete="off">
+    <input class="input chat__input" data-chat-input type="text" maxlength="200" placeholder="@L["chat.placeholder"]" aria-label="@L["chat.placeholder"]" data-nav>
+    <button class="btn btn--primary btn--sm chat__send" type="submit" data-nav aria-label="@L["chat.send"]">
+      <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-send"></use></svg>
+    </button>
+  </form>
+</div>

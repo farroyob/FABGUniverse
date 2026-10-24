@@ -29,7 +29,10 @@ export class HubClient extends EventTarget {
       .build();
 
     for (const [name, shape] of Object.entries(EVENTS)) {
-      this.connection.on(name, (...args) => this.dispatchEvent(new CustomEvent(name, { detail: shape(...args) })));
+      // The handler must not return a value: SignalR would send it back to the server as a result.
+      this.connection.on(name, (...args) => {
+        this.dispatchEvent(new CustomEvent(name, { detail: shape(...args) }));
+      });
     }
     this.connection.onreconnecting(() => this.dispatchEvent(new CustomEvent("connection-lost")));
     this.connection.onreconnected(() => this.dispatchEvent(new CustomEvent("connection-restored")));

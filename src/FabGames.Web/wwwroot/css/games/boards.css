@@ -1,0 +1,193 @@
+/* FAB Games · boards: marble squares, pieces, highlights and the promotion picker.  Shared by chess and checkers. */
+
+.board-wrap {
+  --board-pad: clamp(6px, 1.2vw, 12px);
+  position: relative;
+  width: 100%;
+}
+
+.board {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: var(--board-pad);
+  border-radius: 16px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 30%),
+    linear-gradient(160deg, #2b3659, #0c1224);
+  box-shadow:
+    0 40px 90px -34px rgba(41, 114, 245, 0.55),
+    0 0 0 1px rgba(157, 190, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  touch-action: none;
+}
+
+.board:focus-visible {
+  outline: 2px solid var(--blue-400);
+  outline-offset: 5px;
+}
+
+.board__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.sq--light { fill: url(#fab-sq-light); }
+.sq--dark { fill: url(#fab-sq-dark); }
+
+.coord {
+  font: 600 21px var(--font-mono);
+  pointer-events: none;
+}
+
+.coord--on-light { fill: rgba(29, 38, 68, 0.75); }
+.coord--on-dark { fill: rgba(157, 190, 255, 0.6); }
+
+/* ───────── Highlights ───────── */
+
+.hl { pointer-events: none; }
+.hl--last { fill: rgba(232, 161, 92, 0.38); }
+.hl--selected { fill: rgba(91, 148, 255, 0.45); }
+.hl--doomed { fill: rgba(255, 107, 122, 0.3); }
+.hl--check {
+  fill: rgba(255, 107, 122, 0.62);
+  animation: check-pulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes check-pulse {
+  from { opacity: 0.45; }
+  to { opacity: 1; }
+}
+
+.hint { pointer-events: none; }
+.hint--move { fill: rgba(91, 148, 255, 0.8); }
+.hint--path { fill: rgba(232, 161, 92, 0.95); }
+.hint--capture { fill: none; stroke: rgba(255, 107, 122, 0.9); stroke-width: 7; }
+
+.cursor {
+  fill: none;
+  stroke: var(--blue-300);
+  stroke-width: 5;
+  stroke-dasharray: 18 10;
+  pointer-events: none;
+}
+
+/* ───────── Pieces ───────── */
+
+.piece {
+  transition: transform 0.22s var(--ease-snap);
+  will-change: transform;
+}
+
+.is-interactive .piece { cursor: pointer; }
+
+.piece__art {
+  transform-box: fill-box;
+  transform-origin: 50% 85%;
+  transition: transform 0.16s var(--ease-snap), opacity 0.25s;
+}
+
+.piece.is-lifted .piece__art { transform: translateY(-4px) scale(1.07); }
+.piece.is-dragging { cursor: grabbing; transition: none; }
+.piece.is-dragging .piece__art { transform: translateY(-6px) scale(1.14); }
+
+.piece.is-moving .piece__art { animation: piece-hop 0.24s var(--ease-snap); }
+
+.piece.is-captured { pointer-events: none; }
+.piece.is-captured .piece__art { transform: scale(0.55); opacity: 0; transition-duration: 0.12s, 0.2s; }
+
+.piece.is-appearing .piece__art { animation: piece-pop 0.3s var(--ease-out); }
+.piece.is-promoted .piece__art { animation: piece-pop 0.4s var(--spring); }
+
+@keyframes piece-hop {
+  50% { transform: translateY(-7px) scale(1.05); }
+}
+
+@keyframes piece-pop {
+  from { transform: scale(0.4); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Chess: obsidian and pearl with a copper band */
+.cp .shadow { fill: rgba(0, 0, 0, 0.32); }
+.cp .body { stroke-width: 1.7; stroke-linejoin: round; }
+.cp .band { fill: url(#fab-copper); }
+.cp--pearl .body { fill: url(#fab-pearl); stroke: #8393b6; }
+.cp--obsidian .body { fill: url(#fab-obsidian); stroke: rgba(91, 148, 255, 0.7); }
+.cp--pearl .detail { stroke: #6f7fa5; }
+.cp--obsidian .detail { stroke: rgba(157, 190, 255, 0.75); }
+.cp--pearl .detail-fill { fill: #3b4767; }
+.cp--obsidian .detail-fill { fill: #9dbeff; }
+
+/* Checkers: steel-rimmed discs */
+.dp .shadow { fill: rgba(0, 0, 0, 0.38); }
+.dp .crown { fill: url(#fab-copper); stroke: rgba(80, 40, 10, 0.5); stroke-width: 1.2; stroke-linejoin: round; }
+.dp--dark .edge { fill: #04060d; stroke: rgba(91, 148, 255, 0.55); stroke-width: 2; }
+.dp--dark .face { fill: url(#fab-disc-dark); stroke: rgba(91, 148, 255, 0.8); stroke-width: 2.2; }
+.dp--dark .knurl { stroke: rgba(157, 190, 255, 0.4); stroke-width: 3; }
+.dp--dark .inner { fill: rgba(4, 6, 13, 0.5); stroke: rgba(91, 148, 255, 0.35); stroke-width: 1.5; }
+.dp--light .edge { fill: #7e8cab; stroke: #5d6b8a; stroke-width: 2; }
+.dp--light .face { fill: url(#fab-disc-light); stroke: #8393b6; stroke-width: 2.2; }
+.dp--light .knurl { stroke: rgba(40, 52, 88, 0.4); stroke-width: 3; }
+.dp--light .inner { fill: rgba(120, 138, 180, 0.22); stroke: rgba(40, 52, 88, 0.25); stroke-width: 1.5; }
+
+/* ───────── Promotion picker ───────── */
+
+.board-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.promo {
+  position: absolute;
+  left: calc(var(--board-pad) + (100% - 2 * var(--board-pad)) * var(--col) / 8);
+  width: calc((100% - 2 * var(--board-pad)) / 8);
+  display: grid;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 12px;
+  background: rgba(8, 12, 24, 0.94);
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 24px 60px -10px #000;
+  pointer-events: auto;
+  animation: promo-in 0.22s var(--ease-out);
+}
+
+.promo--up { bottom: var(--board-pad); }
+.promo--down { top: var(--board-pad); }
+
+.promo__piece {
+  aspect-ratio: 1;
+  padding: 4px;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  transition: background-color 0.15s, transform 0.18s var(--ease-snap);
+}
+
+.promo__piece:hover,
+.promo__piece:focus-visible {
+  background: rgba(91, 148, 255, 0.35);
+  transform: scale(1.06);
+}
+
+.promo__piece svg { width: 100%; height: 100%; display: block; }
+
+@keyframes promo-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .piece__art, .piece.is-moving .piece__art { animation: none !important; }
+  @keyframes promo-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes piece-pop { from { opacity: 0; } to { opacity: 1; } }
+  .hl--check { animation: none; }
+}

@@ -364,6 +364,15 @@ html[data-input="touch"] :focus:not(:focus-visible) {
   transform: scale(0.96);
 }
 
+.sound-toggle .icon--off,
+#sound-toggle .icon--off { display: none; }
+
+.sound-toggle[aria-pressed="false"] .icon--on,
+#sound-toggle[aria-pressed="false"] .icon--on { display: none; }
+
+.sound-toggle[aria-pressed="false"] .icon--off,
+#sound-toggle[aria-pressed="false"] .icon--off { display: block; color: var(--text-3); }
+
 /* ───────── Surfaces ───────── */
 
 .glass {

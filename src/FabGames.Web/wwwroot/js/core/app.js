@@ -11,22 +11,26 @@ export function initApp() {
   wireDialogs();
 
   const lang = document.getElementById("lang-links");
-  const link = document.getElementById("lang-switch");
-  if (lang && link) link.href = lang.dataset.url;
+  for (const link of document.querySelectorAll("#lang-switch, .lang-switch")) {
+    if (lang) link.href = lang.dataset.url;
+  }
 
-  const sound = document.getElementById("sound-toggle");
-  const label = document.getElementById("sound-label");
+  const toggles = [...document.querySelectorAll("#sound-toggle, .sound-toggle")];
   const paint = () => {
-    if (!sound) return;
-    sound.setAttribute("aria-pressed", String(!isMuted()));
     const text = t(isMuted() ? "nav.sound.off" : "nav.sound.on");
-    sound.title = text;
-    if (label) label.textContent = text;
+    for (const toggle of toggles) {
+      toggle.setAttribute("aria-pressed", String(!isMuted()));
+      toggle.title = text;
+      const label = toggle.querySelector(".sr-only");
+      if (label) label.textContent = text;
+    }
   };
   paint();
   onMuteChange(paint);
-  sound?.addEventListener("click", () => {
-    setMuted(!isMuted());
-    play("select");
-  });
+  for (const toggle of toggles) {
+    toggle.addEventListener("click", () => {
+      setMuted(!isMuted());
+      play("select");
+    });
+  }
 }

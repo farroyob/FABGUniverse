@@ -1,0 +1,73 @@
+<section id="game" class="game" hidden data-nav-root>
+  <header class="room-top">
+    <button id="game-leave" type="button" class="chip-btn" data-nav>
+      <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-arrow-left"></use></svg>
+      <span>@L["nav.home"]</span>
+    </button>
+    <span id="game-code" class="chip mono"></span>
+    <div class="room-top__tools">
+      <button type="button" class="chip-btn sound-toggle" data-nav aria-pressed="true">
+        <svg class="icon icon--on" aria-hidden="true"><use href="/img/icons.svg#i-volume-on"></use></svg>
+        <svg class="icon icon--off" aria-hidden="true"><use href="/img/icons.svg#i-volume-off"></use></svg>
+        <span class="sr-only">@L["nav.sound.on"]</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="game__layout">
+    <div class="game__stage">
+      <div class="player-card player-card--top" id="card-top" data-card></div>
+      <div class="board-wrap" id="board-wrap">
+        <div id="board-mount" class="board"></div>
+        <div id="board-overlay" class="board-overlay" hidden></div>
+      </div>
+      <div class="player-card player-card--bottom" id="card-bottom" data-card></div>
+    </div>
+
+    <aside class="game__side glass panel" aria-label="@L["game.menu"]">
+      <div class="turn" id="turn" aria-hidden="true">
+        <span class="turn__dot"></span>
+        <span id="turn-text" class="turn__text"></span>
+      </div>
+      <p id="status" class="status" hidden></p>
+
+      <div id="draw-offer" class="draw-offer" hidden>
+        <p id="draw-offer-text"></p>
+        <div class="form-actions">
+          <button id="draw-accept" type="button" class="btn btn--primary btn--sm" data-nav>@L["game.draw.accept"]</button>
+          <button id="draw-decline" type="button" class="btn btn--ghost btn--sm" data-nav>@L["game.draw.decline"]</button>
+        </div>
+      </div>
+
+      <h2 class="side-title">@L["game.moves"]</h2>
+      <ol id="moves" class="moves" aria-label="@L["game.moves"]" tabindex="0"></ol>
+      <p id="moves-empty" class="muted small">@L["game.moves.empty"]</p>
+
+      <div id="controls" class="controls">
+        <button id="btn-draw" type="button" class="btn btn--glass btn--sm" data-nav>
+          <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-equal"></use></svg>@L["game.draw.offer"]
+        </button>
+        <button id="btn-resign" type="button" class="btn btn--glass btn--sm" data-nav>
+          <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-flag"></use></svg>@L["game.resign"]
+        </button>
+        <button id="btn-chat" type="button" class="btn btn--glass btn--sm" data-nav aria-expanded="false" aria-controls="chat-drawer">
+          <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-chat"></use></svg>@L["game.chat"]
+          <span id="chat-badge" class="badge" hidden></span>
+        </button>
+      </div>
+
+      <div id="result-controls" class="controls" hidden>
+        <button id="btn-rematch-inline" type="button" class="btn btn--primary btn--sm" data-nav>
+          <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-rematch"></use></svg>@L["over.rematch"]
+        </button>
+        <button id="btn-home-inline" type="button" class="btn btn--glass btn--sm" data-nav>
+          <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-home"></use></svg>@L["over.home"]
+        </button>
+      </div>
+
+      <div id="chat-drawer" class="chat-drawer" hidden>
+        <partial name="_Chat" />
+      </div>
+    </aside>
+  </div>
+</section>

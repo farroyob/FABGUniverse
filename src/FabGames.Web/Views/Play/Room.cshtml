@@ -1,0 +1,51 @@
+@model RoomViewModel
+@{
+    ViewData["Title"] = L["lobby.title"].Value;
+    ViewData["View"] = "play";
+}
+@section Styles {
+  <link rel="stylesheet" href="~/css/play/lobby.css" asp-append-version="true">
+  <link rel="stylesheet" href="~/css/play/game.css" asp-append-version="true">
+  <link rel="stylesheet" href="~/css/games/boards.css" asp-append-version="true">
+}
+
+<main id="main" class="room" data-room-code="@Model.RoomCode" data-new="@Model.IsNew.ToString().ToLowerInvariant()" data-invalid="@Model.Invalid.ToString().ToLowerInvariant()">
+  <section id="room-loading" class="room-status" role="status">
+    <span class="spinner" aria-hidden="true"></span>
+    <p id="room-loading-text">@(Model.IsNew ? L["lobby.creating"] : L["lobby.joining"])</p>
+  </section>
+
+  <section id="room-error" class="room-status" hidden data-nav-root>
+    <h1 class="display display--md">FAB Games</h1>
+    <p id="room-error-text" class="muted" role="alert"></p>
+    <a class="btn btn--primary" href="/@System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" data-nav>@L["lobby.home"]</a>
+  </section>
+
+  <partial name="_Lobby" />
+  <partial name="_Game" />
+</main>
+
+<partial name="_GameOver" />
+
+<dialog id="dlg-resign" class="dialog glass" aria-labelledby="dlg-resign-title">
+  <div class="dialog__body">
+    <h2 id="dlg-resign-title" class="panel__title">@L["game.resign.confirm"]</h2>
+    <div class="form-actions">
+      <button type="button" id="resign-yes" class="btn btn--danger" data-nav>@L["game.resign.yes"]</button>
+      <button type="button" class="btn btn--ghost" data-close data-nav autofocus>@L["game.keep"]</button>
+    </div>
+  </div>
+</dialog>
+
+<div id="conn-overlay" class="conn-overlay" role="alert" hidden>
+  <div class="glass panel conn-overlay__card">
+    <span class="spinner" aria-hidden="true"></span>
+    <p id="conn-text">@L["game.conn.lost"]</p>
+    <a id="conn-home" class="btn btn--glass" href="/@System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" hidden>@L["lobby.home"]</a>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/lib/signalr/signalr.min.js"></script>
+  <script type="module" src="~/js/play/room.js" asp-append-version="true"></script>
+}

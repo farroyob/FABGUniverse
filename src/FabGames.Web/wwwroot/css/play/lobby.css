@@ -1,0 +1,291 @@
+/* FAB Games · room page shell and lobby */
+
+.room {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.room-status {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1rem;
+  padding: var(--gutter);
+  text-align: center;
+}
+
+.spinner {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid rgba(157, 190, 255, 0.2);
+  border-top-color: var(--blue-400);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.room-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: max(16px, env(safe-area-inset-top)) var(--gutter) 8px;
+}
+
+.room-top__tools {
+  display: flex;
+  gap: 8px;
+}
+
+.lobby {
+  min-height: 100dvh;
+  animation: stage-in 0.45s var(--ease-out) both;
+}
+
+@keyframes stage-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+.lobby__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+  padding: clamp(12px, 3vh, 32px) var(--gutter) 48px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue-300);
+  font-weight: 600;
+}
+
+.code-plate {
+  --cut: 18px;
+  display: grid;
+  gap: 8px;
+  padding: clamp(18px, 3vw, 30px);
+  border: 0;
+  border-radius: 0;
+  clip-path: var(--cut-shape);
+  background:
+    linear-gradient(120deg, rgba(41, 114, 245, 0.22), rgba(13, 20, 38, 0.7) 55%),
+    var(--glass-bg);
+}
+
+.code-plate__label {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.code-plate__code {
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.28em;
+  padding-left: 0.14em;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(41, 114, 245, 0.7);
+}
+
+.code-plate__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.lobby__hint {
+  margin: 14px 2px 22px;
+}
+
+.seats {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.seat {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: var(--r-panel);
+  border: 1px solid var(--line);
+  background: rgba(13, 20, 38, 0.62);
+  transition: border-color 0.25s, background-color 0.25s;
+  animation: seat-in 0.35s var(--ease-out) both;
+}
+
+@keyframes seat-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.seat.is-ready {
+  border-color: rgba(111, 227, 176, 0.55);
+  background: rgba(111, 227, 176, 0.07);
+}
+
+.seat.is-offline { opacity: 0.6; }
+
+.seat.is-empty {
+  border-style: dashed;
+  background: transparent;
+  color: var(--text-3);
+}
+
+.seat__ghost {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px dashed var(--line-strong);
+  animation: ghost 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes ghost {
+  from { opacity: 0.35; }
+  to { opacity: 0.9; }
+}
+
+.seat__name {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.seat__state {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.seat.is-ready .seat__state { color: var(--ok); }
+
+.tag {
+  display: inline-block;
+  padding: 0.1em 0.65em;
+  border-radius: 999px;
+  background: rgba(91, 148, 255, 0.18);
+  color: var(--blue-300);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lobby__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.lobby__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.lobby__chat {
+  display: grid;
+  align-content: start;
+}
+
+/* ───────── Chat (lobby and in-game drawer) ───────── */
+
+.chat {
+  display: grid;
+  gap: 12px;
+}
+
+.chat__log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.chat-msg {
+  display: grid;
+  gap: 2px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow-wrap: anywhere;
+}
+
+.chat-msg strong {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--blue-300);
+}
+
+.chat-msg.is-mine {
+  background: rgba(31, 91, 209, 0.28);
+}
+
+.chat__form {
+  display: flex;
+  gap: 8px;
+}
+
+.chat__input {
+  min-height: 44px;
+  font-size: 1rem;
+}
+
+.chat__send {
+  min-width: 48px;
+}
+
+@media (max-width: 860px) {
+  .lobby__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .code-plate__code { letter-spacing: 0.18em; }
+}
+
+.conn-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  background: rgba(3, 5, 10, 0.7);
+  animation: fade-in 0.2s var(--ease-out);
+}
+
+.conn-overlay__card {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+  max-width: 340px;
+}

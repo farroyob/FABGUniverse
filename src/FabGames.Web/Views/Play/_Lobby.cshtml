@@ -1,0 +1,59 @@
+<section id="lobby" class="lobby" hidden data-nav-root>
+  <header class="room-top">
+    <button id="lobby-leave" type="button" class="chip-btn" data-nav>
+      <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-arrow-left"></use></svg>
+      <span>@L["lobby.leave"]</span>
+    </button>
+    <div class="room-top__tools">
+      <a class="chip-btn lang-switch" href="#" data-nav title="@L["nav.language"]">
+        <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-globe"></use></svg>
+        <span>@(System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "es" ? "EN" : "ES")</span>
+      </a>
+      <button type="button" class="chip-btn sound-toggle" data-nav aria-pressed="true">
+        <svg class="icon icon--on" aria-hidden="true"><use href="/img/icons.svg#i-volume-on"></use></svg>
+        <svg class="icon icon--off" aria-hidden="true"><use href="/img/icons.svg#i-volume-off"></use></svg>
+        <span class="sr-only">@L["nav.sound.on"]</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="lobby__grid">
+    <div class="lobby__main">
+      <p class="eyebrow" id="lobby-game"></p>
+
+      <div class="code-plate glass">
+        <span class="code-plate__label">@L["lobby.code"]</span>
+        <output id="lobby-code" class="code-plate__code mono" aria-live="off"></output>
+        <div class="code-plate__actions">
+          <button id="copy-code" type="button" class="btn btn--glass btn--sm" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-copy"></use></svg>@L["lobby.copy"]
+          </button>
+          <button id="copy-link" type="button" class="btn btn--glass btn--sm" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-copy"></use></svg>@L["lobby.copy.link"]
+          </button>
+          <button id="share-link" type="button" class="btn btn--glass btn--sm" data-nav hidden>
+            <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-share"></use></svg>@L["lobby.share"]
+          </button>
+        </div>
+      </div>
+      <p class="muted lobby__hint" id="lobby-hint">@L["lobby.hint"]</p>
+
+      <ul id="seats" class="seats" aria-label="@L["lobby.title"]"></ul>
+
+      <div class="lobby__bar">
+        <span id="lobby-time" class="chip mono"></span>
+        <div class="lobby__actions">
+          <button id="btn-ready" type="button" class="btn btn--primary" data-nav>@L["lobby.btn.ready"]</button>
+          <button id="btn-start" type="button" class="btn btn--glass" data-nav hidden>
+            <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-play"></use></svg>@L["lobby.start"]
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <aside class="lobby__chat glass panel" aria-label="@L["chat.title"]">
+      <h2 class="panel__title">@L["chat.title"]</h2>
+      <partial name="_Chat" />
+    </aside>
+  </div>
+</section>

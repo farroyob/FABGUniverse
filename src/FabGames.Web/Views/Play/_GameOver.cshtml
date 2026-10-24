@@ -1,0 +1,19 @@
+<dialog id="gameover" class="gameover" aria-labelledby="over-title" aria-describedby="over-reason">
+  <div class="gameover__banner" id="over-banner">
+    <p class="gameover__eyebrow" id="over-eyebrow"></p>
+    <h2 id="over-title" class="display gameover__title"></h2>
+    <p id="over-reason" class="gameover__reason"></p>
+    <dl class="gameover__stats">
+      <div><dt>@L["over.moves"]</dt><dd id="over-moves" class="mono"></dd></div>
+      <div><dt>@L["over.duration"]</dt><dd id="over-duration" class="mono"></dd></div>
+    </dl>
+    <p id="over-rematch-note" class="muted" role="status" hidden></p>
+    <div class="form-actions gameover__actions">
+      <button id="btn-rematch" type="button" class="btn btn--primary" data-nav>
+        <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-rematch"></use></svg>@L["over.rematch"]
+      </button>
+      <button id="btn-view" type="button" class="btn btn--glass" data-nav>@L["over.view"]</button>
+      <button id="btn-over-home" type="button" class="btn btn--ghost" data-nav>@L["over.home"]</button>
+    </div>
+  </div>
+</dialog>
