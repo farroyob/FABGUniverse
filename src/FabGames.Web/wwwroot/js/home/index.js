@@ -55,6 +55,7 @@ function openDashboard(profile) {
 
 function openProfiles() {
   setBackdrop(null);
+  document.getElementById("profile-needed").hidden = !safeNext();
   renderProfiles();
   show("profiles");
   focusPreselected();

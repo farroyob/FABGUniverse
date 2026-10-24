@@ -30,7 +30,6 @@ function show(name) {
   if (current === name) return;
   for (const [key, el] of Object.entries(sections)) el.hidden = key !== name;
   current = name;
-  setBackdrop(name === "lobby" ? "chess" : null);
   focusFirst(sections[name]);
 }
 
@@ -83,6 +82,7 @@ function apply(view) {
   chat.roomCode = roomCode;
   chat.setMe(view.youId);
 
+  setBackdrop(view.room.status === "waiting" ? view.room.gameTypeId : null);
   if (view.room.status === "waiting") {
     show("lobby");
     lobby.update(view, previous);
